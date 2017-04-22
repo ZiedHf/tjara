@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 
 import produit
-
+import fournisseur
 # class tjara(models.Model):
 #     _name = 'tjara.tjara'
 
