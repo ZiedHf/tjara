@@ -27,7 +27,12 @@
         # 'security/ir.model.access.csv',
 #         'views/views.xml',
 #         'views/templates.xml',
-        'views/tjara.xml',
+        'views/product.xml',
+        'views/provider.xml',
+        'views/client.xml',
+        'views/package.xml',
+        'views/product_package.xml',
+        'views/menu.xml',
 
     ],
     # only loaded in demonstration mode

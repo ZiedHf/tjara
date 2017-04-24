@@ -2,8 +2,11 @@
 
 from odoo import models, fields, api
 
-import produit
-import fournisseur
+import product
+import provider
+import client
+import package
+import product_package
 # class tjara(models.Model):
 #     _name = 'tjara.tjara'
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="provider_form_view">
+        	<field name="name">provider.form</field>
+        	<field name="model">tjara.provider</field>
+        	<field name="arch" type="xml">
+        		<form string="Fournisseur form">
+        			<sheet>
+        				<group>
+        					<field name="name"/>
+        					<field name="adresse"/>
+        					<field name="tel"/>
+        					<field name="fax"/>
+        				</group>
+        				<notebook>
+        					<page string="Description">
+        						<field name="description"/>
+        					</page>
+        					<page string="Produits">
+						    	<label for="product_ids"/>
+                        		<field name="product_ids"/>
+        					</page>
+        				</notebook>
+        			</sheet>
+        		</form>
+        	</field>
+        </record>
+        
+        <record model="ir.ui.view" id="provider_search_view">
+            <field name="name">provider.search</field>
+            <field name="model">tjara.provider</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="provider_list_action">
+        	<field name="name">Fournisseurs</field>
+        	<field name="res_model">tjara.provider</field>
+        	<field name="view_type">form</field>
+        	<field name="view_mode">tree,form</field>
+        	<field name="help" type="html">
+                <p class="oe_view_nocontent_create">Création du premier fournisseur</p>
+            </field>
+        </record>
+	</data>
+</odoo>

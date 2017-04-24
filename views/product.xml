@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="product_form_view">
+            <field name="name">product.form</field>
+            <field name="model">tjara.product</field>
+            <field name="arch" type="xml">
+                <form string="Produit Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="add_date"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                            <page string="Fournisseurs">
+						    	<label for="provider_ids"/>
+                        		<field name="provider_ids"/>
+                            </page>
+                            <page string="Clients">
+						    	<label for="client_ids"/>
+                        		<field name="client_ids"/>
+                            </page>
+                        </notebook>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="product_search_view">
+            <field name="name">product.search</field>
+            <field name="model">tjara.product</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+    	
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="product_list_action">
+            <field name="name">Produits</field>
+            <field name="res_model">tjara.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Création du premier produit</p>
+            </field>
+        </record>
+	</data>
+</odoo>

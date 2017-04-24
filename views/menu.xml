@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- top level menu: no parent -->
+        <menuitem id="main_tjara_menu" name="T-Jara"/>
+        <!-- A first level in the left side menu is needed
+             before using action= attribute -->
+        <menuitem id="tjara_menu" name="T-Jara"
+                  parent="main_tjara_menu"/>
+        
+		
+		<menuitem id="tjara_sub_menu_1" name="Nos Produits" parent="tjara_menu"/>
+        <!-- PRODUCTS -->
+        <menuitem id="products_menu" name="Produits" parent="tjara_sub_menu_1" action="product_list_action"/>
+        <!-- PACKAGES -->
+        <menuitem id="packages_menu" name="Emballages" parent="tjara_sub_menu_1" action="package_list_action"/>
+        
+        <menuitem id="product_packages_menu" name="Produit/Emballage" parent="tjara_sub_menu_1" action="product_package_list_action"/>        
+        
+        
+        
+        <menuitem id="tjara_sub_menu_2" name="Nos Partenaires" parent="tjara_menu"/>
+        <!-- PROVIDER -->
+        <menuitem id="providers_menu" name="Fournisseurs" parent="tjara_sub_menu_2" action="provider_list_action"/>
+        
+        <!-- client -->
+        <menuitem id="clients_menu" name="Clients" parent="tjara_sub_menu_2" action="client_list_action"/>
+    </data>
+</odoo>

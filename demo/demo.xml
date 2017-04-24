@@ -1,12 +1,12 @@
 <odoo>
     <data>
-        <record id="Product1" model="tjara.produit">
+        <record id="Product1" model="tjara.product">
            <field name="name">Produit N°1</field>
            <field name="price">5</field>
            <field name="add_date">01/01/2002</field>
            <field name="description">This is a description</field>
         </record>
-        <record id="Product2" model="tjara.produit">
+        <record id="Product2" model="tjara.product">
            <field name="name">Produit N°2</field>
            <field name="price">10</field>
            <field name="add_date">01/01/2008</field>
