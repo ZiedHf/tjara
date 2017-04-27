@@ -14,8 +14,13 @@
         <menuitem id="products_menu" name="Produits" parent="tjara_sub_menu_1" action="product_list_action"/>
         <!-- PACKAGES -->
         <menuitem id="packages_menu" name="Emballages" parent="tjara_sub_menu_1" action="package_list_action"/>
-        
-        <menuitem id="product_packages_menu" name="Produit/Emballage" parent="tjara_sub_menu_1" action="product_package_list_action"/>        
+        <!-- RELATION ENTRE PRODUIT ET EMBALLAGE -->
+        <menuitem id="product_packages_menu" name="Produit/Emballage" parent="tjara_sub_menu_1" action="product_package_list_action"/>
+        <!-- DEPOT -->
+        <menuitem id="depot_menu" name="Depot" parent="tjara_sub_menu_1" action="depot_list_action"/>
+        <!-- STOCK -->
+        <menuitem id="stock_menu" name="Stock" parent="tjara_sub_menu_1" action="stock_list_action"/>
+                
         
         
         

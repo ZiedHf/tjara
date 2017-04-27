@@ -27,11 +27,13 @@
         # 'security/ir.model.access.csv',
 #         'views/views.xml',
 #         'views/templates.xml',
+        'views/product_package.xml',
         'views/product.xml',
         'views/provider.xml',
         'views/client.xml',
         'views/package.xml',
-        'views/product_package.xml',
+        'views/stock.xml',
+        'views/depot.xml',
         'views/menu.xml',
 
     ],
@@ -39,4 +41,7 @@
     'demo': [
 #         'demo/demo.xml',
     ],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
 }

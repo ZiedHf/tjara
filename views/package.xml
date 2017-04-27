@@ -22,6 +22,18 @@
             </field>
         </record>
         
+        <!-- override the automatically generated list view for courses -->
+        <record model="ir.ui.view" id="package_tree_view">
+            <field name="name">package.tree</field>
+            <field name="model">tjara.package</field>
+            <field name="arch" type="xml">
+                <tree string="Emballage Tree">
+                    <field name="name"/>
+                    <field name="unity"/>
+                </tree>
+            </field>
+        </record>
+        
     	<record model="ir.ui.view" id="package_search_view">
             <field name="name">package.search</field>
             <field name="model">tjara.package</field>

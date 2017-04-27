@@ -23,6 +23,28 @@
             </field>
         </record>
         
+        <record model="ir.ui.view" id="product_package_form_view2">
+            <field name="name">product_package.form</field>
+            <field name="model">tjara.product_package</field>
+            <field name="arch" type="xml">
+                <form string="Emballage Form">
+                    <sheet>
+                        <group>
+                            <field name="product_id"/>
+                            <field name="package_id"/>
+                            <field name="price"/>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <field name="description"/>
+                            </page>
+                        </notebook>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
     	<record model="ir.ui.view" id="product_package_search_view">
             <field name="name">product_package.search</field>
             <field name="model">tjara.product_package</field>
@@ -47,6 +69,6 @@
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">Création du premier relation produit/emballage</p>
             </field>
-        </record>
+		</record>
 	</data>
 </odoo>

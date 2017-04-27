@@ -7,6 +7,9 @@ import provider
 import client
 import package
 import product_package
+import stock
+import depot
+
 # class tjara(models.Model):
 #     _name = 'tjara.tjara'
 
