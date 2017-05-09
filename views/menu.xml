@@ -27,8 +27,13 @@
         <menuitem id="tjara_sub_menu_2" name="Nos Partenaires" parent="tjara_menu"/>
         <!-- PROVIDER -->
         <menuitem id="providers_menu" name="Fournisseurs" parent="tjara_sub_menu_2" action="provider_list_action"/>
-        
         <!-- client -->
         <menuitem id="clients_menu" name="Clients" parent="tjara_sub_menu_2" action="client_list_action"/>
+        
+        
+        
+		<menuitem id="tjara_sub_menu_3" name="Demande d'offre" parent="tjara_menu"/>
+        <menuitem id="purchase_order_menu" name="Demande d'achat" parent="tjara_sub_menu_3" action="purchase_order_list_action"/>
+        <menuitem id="purchase_inquiry_menu" name="Demande d'offre" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/>
     </data>
 </odoo>

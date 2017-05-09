@@ -9,6 +9,8 @@ import package
 import product_package
 import stock
 import depot
+import purchase_order
+import purchase_inquiry
 
 # class tjara(models.Model):
 #     _name = 'tjara.tjara'

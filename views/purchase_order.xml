@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="purchase_order_form_view">
+				<field name="name">purchase_order.form</field>
+	            <field name="model">tjara.purchase_order</field>
+	            <field name="arch" type="xml">
+	                <form string="Demande d'achat Form">
+	                	<header>
+						    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+						    <!--The oe_highlight class gives the button a red color when it is saved.
+						    It is usually used to indicate the expected behaviour. -->
+						    <button string="Accepted" type="object" name="accepted_progressbar" attrs="{'invisible': [('state','=','accepted')]}"/>
+						    <button string="Send" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state','=','inprogress')]}"/>						    
+						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','done')]}"/>
+						    <!--This will create the statusbar, thanks to the widget. -->
+						    <field name="state" widget="statusbar" statusbar_visible="draft, inprogress, accepted, done"/>
+						</header>
+	                    <sheet>
+	                        <group>
+	                            <group>
+		                            <field name="name"/>
+	<!-- 	                            <field name="product_package_id" widget="many2one" options="{'no_open':True,'no_create':1,'no_create_edit':1}" /> -->
+		                            <field name="product_package_id" options="{'no_create':1,'no_create_edit':1}"/>
+		                            <field name="qte"/>
+	                            </group>
+	                            <group>
+	                            	<field name="qte_prpk" readonly="1" invisible="1"/>
+	                            	<field name="unity" readonly="1" invisible="1"/>
+	                            	<field name="qte_prpk_unity" readonly="1"/>
+	                            	<field name="qte_total" invisible="1"/>
+	                            	<field name="qte_total_unity" readonly="1"/>
+	                            </group>
+	                        </group>
+	                        <notebook>
+	                            <page string="purchase_inquiry_ids">                                	
+<!-- 	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}" options="{'always_reload': True}"/> -->
+	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}">
+	                            		<form string="Demande d'offre Form">
+						                	<header>
+											    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+											    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state','=','sent')]}"/>
+											    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state','=','received')]}"/>						    
+											    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','accepted')]}"/>
+											    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','refused')]}"/>
+											    <button string="Create Command" type="object" name="create_command" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
+											    <field name="state" widget="statusbar" statusbar_visible="draft, sent, received, accepted, refused"/>
+											</header>
+						                    <sheet>
+						                        <group>
+						                            <field name="name"/>
+					                                <field name="purchase_order_id" readonly="1"/>
+					                            	<field name="provider_id"/>
+					                            	<field name="date_inquiry"/>
+					                            	<field name="datefinal_inquiry"/>
+						                        </group>
+						                        <group col="6">
+					                                <field name="product" placeholder="Product Name"/>
+					                                <field name="qte" placeholder="Nbr Emballage"/>
+					                                <field name="qte_total_unity" placeholder="Qte Totale"/>
+						                        </group>
+						                    	<notebook>
+							                    	<page string="Informations">
+							                    		<group>
+							                    			<field name="price"/>
+							                    		</group>
+							                    	</page>
+							                    	<page string="Description">
+							                    		<label for="description" string="Description"/>
+							                    		<field name="description"/>
+							                    	</page>
+							                    </notebook>
+						                    </sheet>
+						                </form>
+	                            	</field>
+	                            </page>
+	                        </notebook>
+	                    </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="purchase_order_tree_view">
+            <field name="name">purchase_order.tree</field>
+            <field name="model">tjara.purchase_order</field>
+            <field name="arch" type="xml">
+                <tree string="Demande d'achat">
+                    <field name="name"/>
+                    <field name="product_package_id"/>
+                    <field name="qte"/>
+                    <field name="qte_prpk"/>
+                    <field name="qte_total_unity"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="purchase_order_search_view">
+            <field name="name">purchase_order.search</field>
+            <field name="model">tjara.purchase_order</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+    	
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="purchase_order_list_action">
+            <field name="name">Demandes d'achat</field>
+            <field name="res_model">tjara.purchase_order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Création du premier demande d'achat</p>
+            </field>
+        </record>
+	</data>
+</odoo>

@@ -2,6 +2,9 @@
 
 from odoo import models, fields, api, exceptions
 from __builtin__ import str
+import sys
+import types
+from pprint import pprint
 
 class product_package(models.Model):
     _name = 'tjara.product_package'
@@ -9,17 +12,21 @@ class product_package(models.Model):
     name = fields.Char(string="Name", default="Unknown", compute='_compute_name')
     product_id = fields.Many2one('tjara.product', ondelete='cascade', string="Produit", index=True)
     package_id = fields.Many2one('tjara.package', ondelete='cascade', string="Emballage", index=True)
-    price = fields.Integer(string="Prix d'unité", required=True)
+#     weight = fields.Float(digits=(8, 3), help="Weight")
+    qte = fields.Integer(string="Quantité / Nombre", required=True)
     description = fields.Text(string="Description d'emballage")
+#     purchase_order_ids = fields.One2many('tjara.purchase_order', ondelete='cascade', string="Demande d'achat", index=True)
+    purchase_order_ids = fields.One2many('tjara.purchase_order', 'product_package_id', string="Demande d'achat")
     
     _sql_constraints = [
         ('ligne_unique', 'unique (product_id, package_id)', 'Package is already exists for this product...!')
     ]
     
-    @api.depends('product_id', 'package_id')
+    @api.depends('product_id', 'package_id', 'qte')
     def _compute_name(self):
         for rec in self:
-            rec.name = str(rec.id) + " - " + rec.product_id.name + " - " + rec.package_id.name
+            if((isinstance(rec.product_id.name, unicode))and(isinstance(rec.package_id.name, unicode))and(isinstance(rec.qte, int))):
+                rec.name = rec.product_id.name + " - " + rec.package_id.name + " / " + str(rec.qte)
 
     @api.onchange('package_id')
     def onchange_product_package(self):

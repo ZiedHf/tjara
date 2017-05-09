@@ -17,21 +17,28 @@
 	                                <field name="description"/>
 	                            </page>
 	                            <page string="Package">
-	                            	<label for="product_package_ids" string="Emballage"/>
+	                            	<label for="product_package_ids" string="Product / Package"/>
 	                            	<field name="product_package_ids">
 	                            		<tree>
 	                            			<field name="package_id"/>
-	                            			<field name="price"/>
+	                            			<field name="qte"/>
 	                            		</tree>
-	                            		<form>
- 	                            			<field name="package_id" required="1"/>
-	                            			<field name="price"/>
+	                            		<form string="Ajouter un emballage">
+ 	                            			<label for="package_id" string=""/>
+ 	                            			<field name="package_id" required="1" string="Package"/>
+	                            			<field name="qte" string="Quantité / Nombre"/>
+	                            			<field name="description" string="Package"/>
 	                            		</form>
 	                            	</field>
 	                            </page>
 	                            <page string="Fournisseurs">
 							    	<label for="provider_ids"/>
-	                        		<field name="provider_ids"/>
+	                        		<field name="provider_ids">
+	                        			<tree>
+		                        			<field name="name"/>
+		                        			<field name="adresse"/>
+	                        			</tree>
+	                        		</field>
 	                            </page>
 	                            <page string="Clients">
 							    	<label for="client_ids"/>
@@ -67,14 +74,6 @@
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">Création du premier produit</p>
             </field>
-        </record>
-        
-        <record model="ir.actions.act_window" id="product_package_list_action2">
-            <field name="name">Emballages</field>
-            <field name="res_model">tjara.product_package</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="product_package_form_view"/>
         </record>
 	</data>
 </odoo>

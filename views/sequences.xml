@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data noupdate="1">
+		<record id="sequence_purchase_order_name" model="ir.sequence">
+			<field name="name">Purchase order name</field>
+			<field name="code">tjara.purchase_order.seq</field>
+			<field name="prefix">PO-%(year)s/%(month)s-</field>
+			<field eval="1" name="number_next" />
+			<field eval="1" name="number_increment" />
+		</record>
+		
+		<record id="sequence_purchase_inquiry_name" model="ir.sequence">
+			<field name="name">Purchase inquiry name</field>
+			<field name="code">tjara.purchase_inquiry.seq</field>
+			<field name="prefix">PI-%(year)s/%(month)s-</field>
+			<field eval="1" name="number_next"/>
+			<field eval="1" name="number_increment" />
+		</record>
+	</data>
+</odoo>

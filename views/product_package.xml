@@ -10,29 +10,7 @@
                         <group>
                             <field name="product_id"/>
                             <field name="package_id"/>
-                            <field name="price"/>
-                        </group>
-                        <notebook>
-                            <page string="Description">
-                                <field name="description"/>
-                            </page>
-                        </notebook>
-                        
-                    </sheet>
-                </form>
-            </field>
-        </record>
-        
-        <record model="ir.ui.view" id="product_package_form_view2">
-            <field name="name">product_package.form</field>
-            <field name="model">tjara.product_package</field>
-            <field name="arch" type="xml">
-                <form string="Emballage Form">
-                    <sheet>
-                        <group>
-                            <field name="product_id"/>
-                            <field name="package_id"/>
-                            <field name="price"/>
+                            <field name="qte"/>
                         </group>
                         <notebook>
                             <page string="Description">
@@ -62,7 +40,7 @@
             that is an action opening a view or a set of views
         -->
         <record model="ir.actions.act_window" id="product_package_list_action">
-            <field name="name">Emballages</field>
+            <field name="name">Produits/Emballages</field>
             <field name="res_model">tjara.product_package</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
