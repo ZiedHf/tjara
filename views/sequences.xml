@@ -16,5 +16,13 @@
 			<field eval="1" name="number_next"/>
 			<field eval="1" name="number_increment" />
 		</record>
+		
+		<record id="sequence_provider_order_name" model="ir.sequence">
+			<field name="name">Provider order name</field>
+			<field name="code">tjara.provider_order.seq</field>
+			<field name="prefix">ProviderOrder-%(year)s/%(month)s-</field>
+			<field eval="1" name="number_next"/>
+			<field eval="1" name="number_increment" />
+		</record>
 	</data>
 </odoo>

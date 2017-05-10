@@ -11,12 +11,13 @@ class purchase_order(models.Model):
 #     product_package_ids = fields.Many2many('tjara.product_package', ondelete='cascade', string="Product _ Package", index=True)
     product_package_id = fields.Many2one('tjara.product_package', ondelete='cascade', string="Product _ Package", index=True, required=True) 
     qte = fields.Integer(string='Quantité / Nombre', required=True)
-    qte_prpk = fields.Integer(related='product_package_id.qte', store=False, string="Qte ou Nbr")
-    unity = fields.Selection(related='product_package_id.package_id.unity', store=False, string="Unité")
-    qte_prpk_unity = fields.Char(string="Qte ou Nbr / Unité", store=False, compute="_compute_qte_prpk_unity")
+    qte_prpk = fields.Integer(related='product_package_id.qte', store=True, string="Qte ou Nbr")
+    unity = fields.Selection(related='product_package_id.package_id.unity', store=True, string="Unité")
+    qte_prpk_unity = fields.Char(string="Qte ou Nbr / Unité", store=True, compute="_compute_qte_prpk_unity")
     qte_total = fields.Integer(string='Quantité totale', compute='_compute_qte_total', store=True)
-    qte_total_unity = fields.Char(string="Quantité Totale", compute="_compute_qte_total_unity", store=False)
+    qte_total_unity = fields.Char(string="Quantité Totale", compute="_compute_qte_total_unity", store=True)
     purchase_inquiry_ids = fields.One2many('tjara.purchase_inquiry', 'purchase_order_id', string="Demande d'offre")
+    provider_order_ids = fields.One2many('tjara.provider_order', 'purchase_order_id', string="Provider Order")
 
     @api.model
     def _get_next_purchasename(self):
@@ -80,7 +81,19 @@ class purchase_order(models.Model):
         
     #This function is triggered when the user clicks on the button 'Done'
     @api.one
+    @api.model
     def done_progressbar(self):
+        record = self.env['tjara.provider_order'].create({
+                'purchase_order_id':self.id,
+                'product':self.product_package_id,
+                'unity':self.unity,
+                'qte_total_unity':self.qte_total_unity,
+                'qte_total':self.qte_total,
+                'qte':self.qte,
+                'qte_prpk':self.qte_prpk,
+                'qte_prpk_unity':self.qte_prpk_unity
+            })
+#         result = super(purchase_order, self).create(vals)
         self.write({
         'state': 'done',
         })

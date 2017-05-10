@@ -12,7 +12,7 @@
 						    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state','=','received')]}"/>						    
 						    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','accepted')]}"/>
 						    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','refused')]}"/>
-						    <button string="Create Command" type="object" name="create_command" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
+						    <!-- <button string="Create Command" type="object" name="create_command" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/> -->
 						    <field name="state" widget="statusbar" statusbar_visible="draft, sent, received, accepted, refused"/>
 						</header>
 	                    <sheet>

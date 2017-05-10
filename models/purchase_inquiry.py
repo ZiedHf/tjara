@@ -9,9 +9,9 @@ class purchase_inquiry(models.Model):
     name = fields.Char(string='Purchase Inquiry Name', default=lambda self: self._get_next_purchaseInquiryname(), store=True, readonly=True)
     state = fields.Selection([('draft', 'Draft'), ('sent', 'Sent'), ('received', 'Received'), ('accepted', 'Accepted'), ('refused', 'Refused')], string='State', default='draft')
     purchase_order_id = fields.Many2one('tjara.purchase_order', ondelete='cascade', string="Purchase Order", index=True, required=True, domain=[('state', '=', 'inprogress')])
-    product = fields.Char(related='purchase_order_id.product_package_id.name', store=False, string="Product", readonly=True)
-    qte_total_unity = fields.Char(related='purchase_order_id.qte_total_unity', store=False, string="Qte/Nbr Total", readonly=True)
-    qte = fields.Integer(related='purchase_order_id.qte', store=False, string="Qte/Nbr Package", readonly=True)
+    product = fields.Char(related='purchase_order_id.product_package_id.name', store=True, string="Product", readonly=True)
+    qte_total_unity = fields.Char(related='purchase_order_id.qte_total_unity', store=True, string="Qte/Nbr Total", readonly=True)
+    qte = fields.Integer(related='purchase_order_id.qte', store=True, string="Qte/Nbr Package", readonly=True)
     provider_id = fields.Many2one('tjara.provider', ondelete='cascade', string="Fournisseur", index=True, required=True)
     price = fields.Float(digits=(12, 3), help="Prix", string="Prix")
     date_inquiry = fields.Date(string="Date de demande")
@@ -59,9 +59,26 @@ class purchase_inquiry(models.Model):
     @api.one
     def accepted_progressbar(self):
         if(self.price > 0):
-            self.write({
-            'state': 'accepted'
+            record = self.env['tjara.provider_order'].create({
+                'purchase_order_id':self.purchase_order_id.id,
+                'product':self.product,
+                'unity':self.purchase_order_id.unity,
+                'qte_total_unity':self.qte_total_unity,
+                'qte_total':self.purchase_order_id.qte_total,
+                'qte':self.qte,
+                'qte_prpk':self.purchase_order_id.qte_prpk,
+                'qte_prpk_unity':self.purchase_order_id.qte_prpk_unity,
+                'provider_id':self.provider_id.id,
+                'price':self.price,
+                'date_inquiry':self.date_inquiry,
+                'datefinal_inquiry':self.datefinal_inquiry
             })
+            if(record):
+                self.write({
+                'state': 'accepted'
+                })
+            else:
+                raise ValidationError('An error occured during the creation of the provider order, please try again.')
         else:
             raise ValidationError('You need to add the price to this purchase inquiry.')
         

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="provider_order_form_view">
+				<field name="name">provider_order.form</field>
+	            <field name="model">tjara.provider_order</field>
+	            <field name="arch" type="xml">
+	                <form string="Commande d'achat" create="false">
+	                	<header>
+						    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+						    <button string="In Progress" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state','=','inprogress')]}"/>
+						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': [('state','=','canceled')]}"/>						    
+						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','done')]}"/>
+						    <field name="state" widget="statusbar" statusbar_visible="draft, inprogress, accepted, done"/>
+						</header>
+	                    <sheet>
+	                        <group>
+	                            <group>
+		                            <field name="name"/>
+	<!-- 	                            <field name="product_package_id" widget="many2one" options="{'no_open':True,'no_create':1,'no_create_edit':1}" /> -->
+		                            <field name="purchase_order_id"/>
+		                            <field name="provider_id"/>
+		                            <field name="product"/>
+	                            </group>
+	                            <group>
+	                            	<field name="qte" readonly="1"/>
+	                            	<field name="qte_prpk" readonly="1"/>
+	                            	<field name="unity" readonly="1"/>
+	                            	<field name="qte_prpk_unity" readonly="1"/>
+	                            	<field name="qte_total"/>
+	                            	<field name="qte_total_unity" readonly="1"/>
+	                            </group>
+	                        </group>
+	                        <notebook>
+		                    	<page string="Informations">
+		                    		<group>
+		                    			<field name="price"/>
+		                    			<field name="date_order"/>
+		                    			<field name="datefinal_order"/>
+		                    		</group>
+		                    	</page>
+		                    	<page string="Description">
+		                    		<group>
+		                    			<field name="description"/>
+		                    		</group>
+		                    	</page>
+		                    </notebook>
+	                    </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="provider_order_tree_view">
+            <field name="name">provider_order.tree</field>
+            <field name="model">tjara.provider_order</field>
+            <field name="arch" type="xml">
+                <tree string="Demande d'achat" create="false">
+                    <field name="name"/>
+                    <field name="purchase_order_id"/>
+                    <field name="provider_id"/>
+                    <field name="qte"/>
+                    <field name="qte_prpk"/>
+                    <field name="qte_total_unity"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="provider_order_search_view">
+            <field name="name">provider_order.search</field>
+            <field name="model">tjara.provider_order</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+    	
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="provider_order_list_action">
+            <field name="name">Provider Order</field>
+            <field name="res_model">tjara.provider_order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create your first provider order</p>
+            </field>
+        </record>
+	</data>
+</odoo>

@@ -11,6 +11,7 @@ import stock
 import depot
 import purchase_order
 import purchase_inquiry
+import provider_order
 
 # class tjara(models.Model):
 #     _name = 'tjara.tjara'

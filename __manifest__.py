@@ -37,6 +37,7 @@
         'views/package.xml',
         'views/stock.xml',
         'views/depot.xml',
+        'views/provider_order.xml',
         'views/menu.xml',
 
     ],

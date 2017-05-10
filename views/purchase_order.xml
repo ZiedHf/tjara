@@ -74,6 +74,9 @@
 						                </form>
 	                            	</field>
 	                            </page>
+		                    	<page string="Provider Order">
+		                    		<field name="provider_order_ids"/>
+		                    	</page>
 	                        </notebook>
 	                    </sheet>
 	                </form>
