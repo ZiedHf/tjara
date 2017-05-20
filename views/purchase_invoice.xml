@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="purchase_invoice_form_view">
+				<field name="name">purchase_invoice.form</field>
+	            <field name="model">tjara.purchase_invoice</field>
+	            <field name="arch" type="xml">
+	                <form string="Purchase Invoice">
+	                    <header>
+						    <button string="Test Many2many" type="object" name="test_function"/>
+						</header>
+	                    <sheet>
+	                        <group>
+	                            <field name="name"/>
+	                        </group>
+	                    	<notebook>
+		                    	<page string="Provider Order">
+		                    		<group>
+		                    			<field name="provider_order_ids" widget="many2many" context="{'tree_view_ref':'tjara.provider_order_tree_view2'}"/>
+		                    		</group>
+		                    	</page>
+		                    	<page string="Product">
+		                    		<field name="name_products"/>
+		                    	</page>
+		                    </notebook>
+	                    </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="purchase_invoice_tree_view">
+            <field name="name">purchase_invoice.tree</field>
+            <field name="model">tjara.purchase_invoice</field>
+            <field name="arch" type="xml">
+                <tree string="Demande d'offre">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="purchase_invoice_search_view">
+            <field name="name">purchase_invoice.search</field>
+            <field name="model">tjara.purchase_invoice</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+    	
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="purchase_invoice_list_action">
+            <field name="name">Demande d'offre de prix</field>
+            <field name="res_model">tjara.purchase_invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Création de la première facture</p>
+            </field>
+        </record>
+	</data>
+</odoo>

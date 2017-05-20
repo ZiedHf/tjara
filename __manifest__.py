@@ -38,7 +38,9 @@
         'views/stock.xml',
         'views/depot.xml',
         'views/provider_order.xml',
+        'views/purchase_invoice.xml',
         'views/menu.xml',
+        'views/wizards.xml',
 
     ],
     # only loaded in demonstration mode

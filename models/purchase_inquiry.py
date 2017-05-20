@@ -9,6 +9,7 @@ class purchase_inquiry(models.Model):
     name = fields.Char(string='Purchase Inquiry Name', default=lambda self: self._get_next_purchaseInquiryname(), store=True, readonly=True)
     state = fields.Selection([('draft', 'Draft'), ('sent', 'Sent'), ('received', 'Received'), ('accepted', 'Accepted'), ('refused', 'Refused')], string='State', default='draft')
     purchase_order_id = fields.Many2one('tjara.purchase_order', ondelete='cascade', string="Purchase Order", index=True, required=True, domain=[('state', '=', 'inprogress')])
+    purchase_order_state = fields.Selection(related='purchase_order_id.state', string="Purchase Order State")
     product = fields.Char(related='purchase_order_id.product_package_id.name', store=True, string="Product", readonly=True)
     qte_total_unity = fields.Char(related='purchase_order_id.qte_total_unity', store=True, string="Qte/Nbr Total", readonly=True)
     qte = fields.Integer(related='purchase_order_id.qte', store=True, string="Qte/Nbr Package", readonly=True)
@@ -25,10 +26,15 @@ class purchase_inquiry(models.Model):
         return next
     
     @api.model
+    @api.depends('purchase_order_id')
     def create(self, vals):
-        vals['name'] = self.env['ir.sequence'].next_by_code('tjara.purchase_inquiry.seq')
-        result = super(purchase_inquiry, self).create(vals)
-        return result 
+        state = self.env['tjara.purchase_order'].search([('id', '=', vals['purchase_order_id'])]).state
+        if(state == 'inprogress'):
+            vals['name'] = self.env['ir.sequence'].next_by_code('tjara.purchase_inquiry.seq')
+            result = super(purchase_inquiry, self).create(vals)
+            return result
+        else:
+            raise ValidationError('The purchase order is not in progress yet.')
 
     #This function is triggered when the user clicks on the button 'Set to concept'
     @api.one
@@ -78,7 +84,7 @@ class purchase_inquiry(models.Model):
                 'state': 'accepted'
                 })
             else:
-                raise ValidationError('An error occured during the creation of the provider order, please try again.')
+                raise ValidationError('An error occurred during the creation of the provider order, please try again.')
         else:
             raise ValidationError('You need to add the price to this purchase inquiry.')
         
@@ -91,3 +97,26 @@ class purchase_inquiry(models.Model):
             })
         else:
             raise ValidationError('You need to add the price to this purchase inquiry.')
+        
+    @api.one
+    @api.model
+    def createPO_progressbar(self):
+        if((self.state != 'accepted')):
+            raise ValidationError("This purchase inquiry is not accepted.")
+        elif((self.state == 'accepted')):
+            record = self.env['tjara.provider_order'].create({
+                    'purchase_order_id':self.purchase_order_id.id,
+                    'product':self.product,
+                    'unity':self.purchase_order_id.unity,
+                    'qte_total_unity':self.qte_total_unity,
+                    'qte_total':self.purchase_order_id.qte_total,
+                    'qte':self.qte,
+                    'qte_prpk':self.purchase_order_id.qte_prpk,
+                    'qte_prpk_unity':self.purchase_order_id.qte_prpk_unity,
+                    'provider_id':self.provider_id.id,
+                    'price':self.price,
+                    'date_inquiry':self.date_inquiry,
+                    'datefinal_inquiry':self.datefinal_inquiry
+                })
+        else:
+            raise ValidationError("This provider order is not in progress yet.")

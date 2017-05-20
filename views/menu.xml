@@ -36,5 +36,7 @@
         <menuitem id="purchase_order_menu" name="Demande d'achat" parent="tjara_sub_menu_3" action="purchase_order_list_action"/>
         <menuitem id="purchase_inquiry_menu" name="Demande d'offre" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/>
         <menuitem id="provider_order_menu" name="Commande d'achat" parent="tjara_sub_menu_3" action="provider_order_list_action"/>
+        
+        <menuitem id="purchase_invoice_menu" name="Facture" parent="tjara_sub_menu_3" action="purchase_invoice_list_action"/>
     </data>
 </odoo>

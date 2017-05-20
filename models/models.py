@@ -12,6 +12,8 @@ import depot
 import purchase_order
 import purchase_inquiry
 import provider_order
+import purchase_invoice
+import wizards
 
 # class tjara(models.Model):
 #     _name = 'tjara.tjara'

@@ -7,12 +7,15 @@
 	            <field name="arch" type="xml">
 	                <form string="Demande d'achat Form">
 	                	<header>
-						    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/>
+<!-- 						    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/> -->
 						    <!--The oe_highlight class gives the button a red color when it is saved.
 						    It is usually used to indicate the expected behaviour. -->
-						    <button string="Accepted" type="object" name="accepted_progressbar" attrs="{'invisible': [('state','=','accepted')]}"/>
-						    <button string="Send" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state','=','inprogress')]}"/>						    
-						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','done')]}"/>
+						    <!-- attrs="{'invisible': ['|',('state', 'in', ['accepted', 'accepted'])]}" -->
+						    <button string="Accepted" type="object" name="accepted_progressbar" attrs="{'invisible': ['|', ('state', 'in', ['done', 'accepted', 'inprogress', 'canceled']), ('is_created', '!=', True)]}"/>
+						    <button string="Send" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state', 'in', ['draft', 'inprogress', 'done', 'canceled'])]}"/>
+						    <button string="Create Provider Order" help="Create Provider Order" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'accepted', 'done', 'canceled'])]}"/>
+						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'accepted', 'done', 'canceled'])]}"/>
+						    <button string="Canceled" type="object" name="canceled_progressbar" class="oe_highlight" attrs="{'invisible': ['|', ('state', 'in', ['done', 'canceled']), ('is_created', '!=', True)]}"/>
 						    <!--This will create the statusbar, thanks to the widget. -->
 						    <field name="state" widget="statusbar" statusbar_visible="draft, inprogress, accepted, done"/>
 						</header>
@@ -30,20 +33,20 @@
 	                            	<field name="qte_prpk_unity" readonly="1"/>
 	                            	<field name="qte_total" invisible="1"/>
 	                            	<field name="qte_total_unity" readonly="1"/>
+	                            	<field name="is_created" invisible='1'/>
 	                            </group>
 	                        </group>
 	                        <notebook>
-	                            <page string="purchase_inquiry_ids">                                	
+	                            <page string="Purchase Inquiries">                                	
 <!-- 	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}" options="{'always_reload': True}"/> -->
-	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}">
+	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}" attrs="{'readonly': ['|', ('state', '!=', 'inprogress'), ('is_created', '!=', True)]}">
 	                            		<form string="Demande d'offre Form">
 						                	<header>
-											    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/>
-											    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state','=','sent')]}"/>
-											    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state','=','received')]}"/>						    
-											    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','accepted')]}"/>
-											    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','refused')]}"/>
-											    <button string="Create Command" type="object" name="create_command" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
+											    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+											    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>						    
+											    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['received'])]}"/>
+											    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['accepted', 'refused'])]}"/>
+											    <button string="Create Command" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
 											    <field name="state" widget="statusbar" statusbar_visible="draft, sent, received, accepted, refused"/>
 											</header>
 						                    <sheet>
@@ -74,8 +77,8 @@
 						                </form>
 	                            	</field>
 	                            </page>
-		                    	<page string="Provider Order">
-		                    		<field name="provider_order_ids"/>
+		                    	<page string="Provider Orders">
+		                    		<field name="provider_order_ids" editable="1"/>
 		                    	</page>
 	                        </notebook>
 	                    </sheet>

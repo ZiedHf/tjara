@@ -2,9 +2,6 @@
 
 from odoo import models, fields, api, exceptions
 from __builtin__ import str
-import sys
-import types
-from pprint import pprint
 
 class product_package(models.Model):
     _name = 'tjara.product_package'

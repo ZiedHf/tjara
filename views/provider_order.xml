@@ -23,12 +23,12 @@
 		                            <field name="product"/>
 	                            </group>
 	                            <group>
-	                            	<field name="qte" readonly="1"/>
-	                            	<field name="qte_prpk" readonly="1"/>
-	                            	<field name="unity" readonly="1"/>
-	                            	<field name="qte_prpk_unity" readonly="1"/>
+	                            	<field name="qte"/>
+	                            	<field name="qte_prpk"/>
+	                            	<field name="unity"/>
+	                            	<field name="qte_prpk_unity"/>
 	                            	<field name="qte_total"/>
-	                            	<field name="qte_total_unity" readonly="1"/>
+	                            	<field name="qte_total_unity"/>
 	                            </group>
 	                        </group>
 	                        <notebook>
@@ -55,6 +55,22 @@
             <field name="model">tjara.provider_order</field>
             <field name="arch" type="xml">
                 <tree string="Demande d'achat" create="false">
+                    <field name="name"/>
+                    <field name="purchase_order_id"/>
+                    <field name="provider_id"/>
+                    <field name="qte"/>
+                    <field name="qte_prpk"/>
+                    <field name="qte_total_unity"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="provider_order_tree_view2">
+            <field name="name">provider_order.tree</field>
+            <field name="model">tjara.provider_order</field>
+            <field name="arch" type="xml">
+                <tree string="Demande d'achat">
                     <field name="name"/>
                     <field name="purchase_order_id"/>
                     <field name="provider_id"/>

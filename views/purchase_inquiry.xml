@@ -7,12 +7,12 @@
 	            <field name="arch" type="xml">
 	                <form string="Demande d'offre Form">
 	                	<header>
-						    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/>
-						    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state','=','sent')]}"/>
-						    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state','=','received')]}"/>						    
-						    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','accepted')]}"/>
-						    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state','=','refused')]}"/>
-						    <!-- <button string="Create Command" type="object" name="create_command" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/> -->
+						    <!-- <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', 'in', ['draft', 'sent', 'accepted', 'inprogress'])]}"/> -->
+						    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+						    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>						    
+						    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['received'])]}"/>
+						    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['accepted', 'refused'])]}"/>
+						    <button string="Create Command" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
 						    <field name="state" widget="statusbar" statusbar_visible="draft, sent, received, accepted, refused"/>
 						</header>
 	                    <sheet>
