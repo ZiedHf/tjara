@@ -7,7 +7,7 @@ class provider_order(models.Model):
     _name = 'tjara.provider_order'
         
     name = fields.Char(string='Provider Order', default=lambda self: self._get_next_providerOrdername(), store=True, readonly=True)
-    state = fields.Selection([('draft', 'Draft'), ('inprogress', 'In progress'), ('canceled', 'Canceled'), ('done', 'Done')], string='State', default='draft')
+    state = fields.Selection([('draft', 'Draft'), ('inprogress', 'In progress'), ('done', 'Done'), ('canceled', 'Canceled'), ('invoiced', 'Invoiced')], string='State', default='draft')
     purchase_order_id = fields.Many2one('tjara.purchase_order', ondelete='cascade', string="Purchase Order", index=True, required=True, domain=[('state', '=', 'inprogress')], readonly=True)
     provider_id = fields.Many2one('tjara.provider', ondelete='cascade', string="Provider", index=True)
 #     provider_id = fields.Many2one('tjara.provider', ondelete='cascade', string="Provider", index=True, required=True)
@@ -63,28 +63,48 @@ class provider_order(models.Model):
 
     @api.one
     def draft_progressbar(self):
-        if(self.provider_id):
-            self.write({
-            'state': 'draft'
-            })
+        if(self.state != 'invoiced'):
+            if(self.provider_id.id):
+                self.write({
+                'state': 'draft'
+                })
+            else:
+                raise ValidationError("Please set a provider to this order.")
         else:
-            raise ValidationError("Please set a provider to this order.")
+                raise ValidationError("This provider order is invoiced !")
     @api.one
     def inprogress_progressbar(self):
-        self.write({
-        'state': 'inprogress'
-        })
+        if(self.state == 'invoiced'):
+            raise ValidationError("This provider order is invoiced !")
+        elif(not(self.provider_id.id)):
+            raise ValidationError("Please set a valid provider to this provider order !")
+        elif(self.price <= 0):
+            raise ValidationError("Please set a price to this provider order !")
+        else:
+            self.write({
+            'state': 'inprogress'
+            })
+            
     
     @api.one
     def canceled_progressbar(self):
-        self.write({
-        'state': 'canceled'
-        })
-    
+        if(self.state != 'invoiced'):
+            self.write({
+            'state': 'canceled'
+            })
+        else:
+            raise ValidationError("This provider order is invoiced !")
+        
     @api.one
     def done_progressbar(self):
-        self.write({
-        'state': 'done'
-        })
-        
+        if(self.price <= 0):
+            raise ValidationError("Please set a price to this provider order !")
+        elif(not(self.provider_id.id)):
+            raise ValidationError("Please set a valid provider to this provider order !")
+        elif(self.state == 'invoiced'):
+            raise ValidationError("This provider order is invoiced !")
+        else:
+            self.write({
+            'state': 'done'
+            })
     

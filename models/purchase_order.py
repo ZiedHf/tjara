@@ -120,13 +120,17 @@ class purchase_order(models.Model):
     def done_progressbar(self):
         if(self.provider_order_ids):
             isset_provider_order = True
+            invoiced_provider_order = False
             for rec in self.provider_order_ids:
                 if(rec.state == 'inprogress'):
                     isset_provider_order = False
-                    break
+                if(rec.state == 'invoiced'):
+                    invoiced_provider_order = True
 
             if(not(isset_provider_order)):
-                raise ValidationError("Some provider order still not done or canceled yet.")
+                raise ValidationError("Some provider order still not done or canceled yet !")
+            elif(not(invoiced_provider_order)):
+                raise ValidationError("There is no invoiced provider order !")
             else:
                 self.write({
                     'state': 'done',
@@ -151,12 +155,12 @@ class purchase_order(models.Model):
         #check if there is provider orders done or in progress
         isset_provider_orders = True
         for rec in self.provider_order_ids:
-            if((rec.state == 'done')or(rec.state == 'inprogress')):
+            if((rec.state == 'done')or(rec.state == 'inprogress')or(rec.state == 'invoiced')):
                 isset_provider_orders = False
                 break
         
         if(not(isset_provider_orders)):
-            raise ValidationError("You can't cancel this purchase order. There is provider orders in progress or done.")
+            raise ValidationError("You can't cancel this purchase order. There is provider orders in progress, done or invoiced.")
             return False
         
         #check if there is provider orders done or in progress    

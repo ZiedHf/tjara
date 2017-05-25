@@ -24,8 +24,8 @@
 	                            <group>
 		                            <field name="name"/>
 	<!-- 	                            <field name="product_package_id" widget="many2one" options="{'no_open':True,'no_create':1,'no_create_edit':1}" /> -->
-		                            <field name="product_package_id" options="{'no_create':1,'no_create_edit':1}"/>
-		                            <field name="qte"/>
+		                            <field name="product_package_id" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}" options="{'no_create':1,'no_create_edit':1}"/>
+		                            <field name="qte" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
 	                            </group>
 	                            <group>
 	                            	<field name="qte_prpk" readonly="1" invisible="1"/>
@@ -39,43 +39,7 @@
 	                        <notebook>
 	                            <page string="Purchase Inquiries">                                	
 <!-- 	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}" options="{'always_reload': True}"/> -->
-	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}" attrs="{'readonly': ['|', ('state', '!=', 'inprogress'), ('is_created', '!=', True)]}">
-	                            		<form string="Demande d'offre Form">
-						                	<header>
-											    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
-											    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>						    
-											    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['received'])]}"/>
-											    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['accepted', 'refused'])]}"/>
-											    <button string="Create Command" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
-											    <field name="state" widget="statusbar" statusbar_visible="draft, sent, received, accepted, refused"/>
-											</header>
-						                    <sheet>
-						                        <group>
-						                            <field name="name"/>
-					                                <field name="purchase_order_id" readonly="1"/>
-					                            	<field name="provider_id"/>
-					                            	<field name="date_inquiry"/>
-					                            	<field name="datefinal_inquiry"/>
-						                        </group>
-						                        <group col="6">
-					                                <field name="product" placeholder="Product Name"/>
-					                                <field name="qte" placeholder="Nbr Emballage"/>
-					                                <field name="qte_total_unity" placeholder="Qte Totale"/>
-						                        </group>
-						                    	<notebook>
-							                    	<page string="Informations">
-							                    		<group>
-							                    			<field name="price"/>
-							                    		</group>
-							                    	</page>
-							                    	<page string="Description">
-							                    		<label for="description" string="Description"/>
-							                    		<field name="description"/>
-							                    	</page>
-							                    </notebook>
-						                    </sheet>
-						                </form>
-	                            	</field>
+	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id, 'form_view_ref':'tjara.purchase_inquiry_form_view2'}" attrs="{'readonly': ['|', ('state', '!=', 'inprogress'), ('is_created', '!=', True)]}"/>
 	                            </page>
 		                    	<page string="Provider Orders">
 		                    		<field name="provider_order_ids" editable="1"/>

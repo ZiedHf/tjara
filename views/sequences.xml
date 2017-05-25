@@ -24,5 +24,21 @@
 			<field eval="1" name="number_next"/>
 			<field eval="1" name="number_increment" />
 		</record>
+		
+		<record id="sequence_purchase_invoice_name" model="ir.sequence">
+			<field name="name">Purchase Invoice name</field>
+			<field name="code">tjara.purchase_invoice.seq</field>
+			<field name="prefix">PurchaseInvoice-%(year)s/%(month)s-</field>
+			<field eval="1" name="number_next"/>
+			<field eval="1" name="number_increment" />
+		</record>
+		
+		<record id="sequence_purchase_payment_name" model="ir.sequence">
+			<field name="name">Purchase Payment name</field>
+			<field name="code">tjara.purchase_payment.seq</field>
+			<field name="prefix">PurchasePayment-%(year)s/%(month)s-</field>
+			<field eval="1" name="number_next"/>
+			<field eval="1" name="number_increment" />
+		</record>
 	</data>
 </odoo>

@@ -19,6 +19,7 @@ class purchase_inquiry(models.Model):
     datefinal_inquiry = fields.Date(string="Date d'expiration")
     description = fields.Text(string="Description")
 
+        
     @api.model
     def _get_next_purchaseInquiryname(self):
         sequence = self.env['ir.sequence'].search([('code','=','tjara.purchase_inquiry.seq')])

@@ -38,5 +38,6 @@
         <menuitem id="provider_order_menu" name="Commande d'achat" parent="tjara_sub_menu_3" action="provider_order_list_action"/>
         
         <menuitem id="purchase_invoice_menu" name="Facture" parent="tjara_sub_menu_3" action="purchase_invoice_list_action"/>
+        <menuitem id="purchase_payment_menu" name="Purchase Payment" parent="tjara_sub_menu_3" action="purchase_payment_list_action"/>
     </data>
 </odoo>

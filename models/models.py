@@ -13,6 +13,7 @@ import purchase_order
 import purchase_inquiry
 import provider_order
 import purchase_invoice
+import purchase_payment
 import wizards
 
 # class tjara(models.Model):

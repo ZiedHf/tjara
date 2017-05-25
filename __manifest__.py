@@ -39,6 +39,7 @@
         'views/depot.xml',
         'views/provider_order.xml',
         'views/purchase_invoice.xml',
+        'views/purchase_payment.xml',
         'views/menu.xml',
         'views/wizards.xml',
 

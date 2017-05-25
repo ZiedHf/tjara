@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="purchase_payment_form_view">
+				<field name="name">purchase_payment.form</field>
+	            <field name="model">tjara.purchase_payment</field>
+	            <field name="arch" type="xml">
+	                <form string="Purchase Payment">
+	                    <sheet>
+	                        <group>
+	                            <field name="name"/>
+	                            <field name="provider_id"/>
+	                        </group>
+	                    	<notebook>
+		                    	<page string="Provider Order">
+		                    		<group>
+		                    			<field name="purchase_invoice_ids" widget="many2many" 
+		                    					options="{'no_create': True, 'no_create_edit': True}"/>
+		                    		</group>
+		                    	</page>
+		                    </notebook>
+	                    </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="purchase_payment_tree_view">
+            <field name="name">purchase_payment.tree</field>
+            <field name="model">tjara.purchase_payment</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase Payment">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="purchase_payment_search_view">
+            <field name="name">purchase_payment.search</field>
+            <field name="model">tjara.purchase_payment</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+    	
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="purchase_payment_list_action">
+            <field name="name">Purchase Payment</field>
+            <field name="res_model">tjara.purchase_payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">First purchase payment</p>
+            </field>
+        </record>
+	</data>
+</odoo>
