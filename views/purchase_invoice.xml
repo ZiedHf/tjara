@@ -24,7 +24,7 @@
 		                    	<page string="Provider Order">
 		                    		<group>
 		                    			<field name="provider_order_ids" widget="many2many" context="{'tree_view_ref':'tjara.provider_order_tree_view2'}" 
-		                    					attrs="{'readonly':[('provider_id', '=', False)], 'invisible':[('state', '=', 'canceled')]}"
+		                    					attrs="{'readonly':['|', ('provider_id', '=', False), ('state', '!=', 'draft')], 'invisible':[('state', '=', 'canceled')]}"
 		                    					options="{'no_create': True, 'no_create_edit': True}"/>
                     					<field name="po_canceled" attrs="{'readonly':[('state', '=', 'canceled')], 'invisible':[('state', '!=', 'canceled')]}"/>
 		                    		</group>

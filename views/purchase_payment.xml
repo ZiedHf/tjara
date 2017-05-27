@@ -6,16 +6,33 @@
 	            <field name="model">tjara.purchase_payment</field>
 	            <field name="arch" type="xml">
 	                <form string="Purchase Payment">
+	                	<header>
+						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': ['|', ('state','not in', ['draft']), ('is_created', '=', False)]}"/>
+					    	<field name="state" widget="statusbar" statusbar_visible="draft, inprogress, done"/>
+						</header>
 	                    <sheet>
 	                        <group>
 	                            <field name="name"/>
-	                            <field name="provider_id"/>
+	                            <field name="provider_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+	                            <field name="is_created" invisible="1"/>
+	                            <field name="pricetoshow" invisible="1"/>
 	                        </group>
 	                    	<notebook>
-		                    	<page string="Provider Order">
+		                    	<page string="Purchase Invoice">
 		                    		<group>
 		                    			<field name="purchase_invoice_ids" widget="many2many" 
-		                    					options="{'no_create': True, 'no_create_edit': True}"/>
+	                    					attrs="{'readonly':['|', ('provider_id', '=', False), ('state', '!=', 'draft')], 'invisible':[('state', '=', 'canceled')]}"
+	                    					options="{'no_create': True, 'no_create_edit': True}"/>
+                    					<field name="pi_canceled" attrs="{'invisible':[('state', '!=', 'canceled')]}"/>
+		                    		</group>
+		                    		<group class="oe_subtotal_footer">
+		                            	<field name="total_price" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '=', 'canceled')]}" />
+		                            	<field name="total_price_canceled" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
+									</group>
+		                    	</page>
+		                    	<page string="Provider Regulation">
+		                    		<group>
+		                    			<field name="provider_regulation_ids"/>
 		                    		</group>
 		                    	</page>
 		                    </notebook>
@@ -28,8 +45,11 @@
             <field name="name">purchase_payment.tree</field>
             <field name="model">tjara.purchase_payment</field>
             <field name="arch" type="xml">
-                <tree string="Purchase Payment">
+                <tree string="Purchase Payment" decoration-muted="state == 'canceled'">
                     <field name="name"/>
+					<field name="provider_id"/>
+                    <field name="pricetoshow"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>

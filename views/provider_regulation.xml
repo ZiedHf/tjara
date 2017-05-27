@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="provider_regulation_form_view">
+				<field name="name">provider_regulation.form</field>
+	            <field name="model">tjara.provider_regulation</field>
+	            <field name="arch" type="xml">
+	                <form string="Provider Regulation">
+	                	<header>
+						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': ['|', ('state','not in', ['draft']), ('is_created', '=', False)]}"/>
+					    	<field name="state" widget="statusbar" statusbar_visible="draft, inprogress, done"/>
+						</header>
+	                    <sheet>
+	                        <group>
+	                            <field name="name"/>
+			                    <field name="purchase_payment_id" options="{'no_create': True, 'no_create_edit': True}" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+			                    <field name="provider_id"/>
+			                    <field name="price"/>
+			                    <field name="total_price"/>
+			                    <field name="total_price_pr"/>
+			                    <field name="amount_to_pay"/>
+	                            <field name="is_created" invisible="1"/>
+	                        </group>
+	                    </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="provider_regulation_tree_view">
+            <field name="name">provider_regulation.tree</field>
+            <field name="model">tjara.provider_regulation</field>
+            <field name="arch" type="xml">
+                <tree string="Provider Regulation" decoration-muted="state == 'canceled'">
+                    <field name="name"/>
+                    <field name="purchase_payment_id"/>
+					<!-- <field name="provider_id"/>
+                    <field name="price"/>
+                    <field name="total_price"/> -->
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="provider_regulation_search_view">
+            <field name="name">provider_regulation.search</field>
+            <field name="model">tjara.provider_regulation</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+    	
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="provider_regulation_list_action">
+            <field name="name">Provider Regulation</field>
+            <field name="res_model">tjara.provider_regulation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">First provider regulation</p>
+            </field>
+        </record>
+	</data>
+</odoo>

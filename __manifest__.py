@@ -40,6 +40,7 @@
         'views/provider_order.xml',
         'views/purchase_invoice.xml',
         'views/purchase_payment.xml',
+        'views/provider_regulation.xml',
         'views/menu.xml',
         'views/wizards.xml',
 

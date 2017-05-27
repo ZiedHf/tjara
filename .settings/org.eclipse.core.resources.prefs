@@ -10,6 +10,7 @@ encoding//models/product.py=utf-8
 encoding//models/product_package.py=utf-8
 encoding//models/provider.py=utf-8
 encoding//models/provider_order.py=utf-8
+encoding//models/provider_regulation.py=utf-8
 encoding//models/purchase_inquiry.py=utf-8
 encoding//models/purchase_invoice.py=utf-8
 encoding//models/purchase_order.py=utf-8
