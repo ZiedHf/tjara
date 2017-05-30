@@ -9,13 +9,13 @@
                   parent="main_tjara_menu"/>
         
 		
-		<menuitem id="tjara_sub_menu_1" name="Nos Produits" parent="tjara_menu"/>
+		<menuitem id="tjara_sub_menu_1" name="Our Products" parent="tjara_menu"/>
         <!-- PRODUCTS -->
-        <menuitem id="products_menu" name="Produits" parent="tjara_sub_menu_1" action="product_list_action"/>
+        <menuitem id="products_menu" name="Products List" parent="tjara_sub_menu_1" action="product_list_action"/>
         <!-- PACKAGES -->
-        <menuitem id="packages_menu" name="Emballages" parent="tjara_sub_menu_1" action="package_list_action"/>
+        <menuitem id="packages_menu" name="Packages List" parent="tjara_sub_menu_1" action="package_list_action"/>
         <!-- RELATION ENTRE PRODUIT ET EMBALLAGE -->
-        <menuitem id="product_packages_menu" name="Produit/Emballage" parent="tjara_sub_menu_1" action="product_package_list_action"/>
+<!--         <menuitem id="product_packages_menu" name="Produit/Emballage" parent="tjara_sub_menu_1" action="product_package_list_action"/> -->
         <!-- DEPOT -->
         <menuitem id="depot_menu" name="Depot" parent="tjara_sub_menu_1" action="depot_list_action"/>
         <!-- STOCK -->
@@ -24,21 +24,21 @@
         
         
         
-        <menuitem id="tjara_sub_menu_2" name="Nos Partenaires" parent="tjara_menu"/>
+        <menuitem id="tjara_sub_menu_2" name="Partners" parent="tjara_menu"/>
         <!-- PROVIDER -->
-        <menuitem id="providers_menu" name="Fournisseurs" parent="tjara_sub_menu_2" action="provider_list_action"/>
+        <menuitem id="providers_menu" name="Providers" parent="tjara_sub_menu_2" action="provider_list_action"/>
         <!-- client -->
         <menuitem id="clients_menu" name="Clients" parent="tjara_sub_menu_2" action="client_list_action"/>
         
         
         
-		<menuitem id="tjara_sub_menu_3" name="Demande d'offre" parent="tjara_menu"/>
-        <menuitem id="purchase_order_menu" name="Demande d'achat" parent="tjara_sub_menu_3" action="purchase_order_list_action"/>
-        <menuitem id="purchase_inquiry_menu" name="Demande d'offre" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/>
-        <menuitem id="provider_order_menu" name="Commande d'achat" parent="tjara_sub_menu_3" action="provider_order_list_action"/>
+		<menuitem id="tjara_sub_menu_3" name="Purchase" parent="tjara_menu"/>
+        <menuitem id="purchase_order_menu" name="Provider Order" parent="tjara_sub_menu_3" action="purchase_order_list_action"/>
+<!--         <menuitem id="purchase_inquiry_menu" name="Demande d'offre" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/> -->
+<!--         <menuitem id="provider_order_menu" name="Commande d'achat" parent="tjara_sub_menu_3" action="provider_order_list_action"/> -->
         
-        <menuitem id="purchase_invoice_menu" name="Facture" parent="tjara_sub_menu_3" action="purchase_invoice_list_action"/>
+        <menuitem id="purchase_invoice_menu" name="Purchase Invoice" parent="tjara_sub_menu_3" action="purchase_invoice_list_action"/>
         <menuitem id="purchase_payment_menu" name="Purchase Payment" parent="tjara_sub_menu_3" action="purchase_payment_list_action"/>
-        <menuitem id="provider_regulation_menu" name="Provider Regulation" parent="tjara_sub_menu_3" action="provider_regulation_list_action"/>
+<!--         <menuitem id="provider_regulation_menu" name="Provider Regulation" parent="tjara_sub_menu_3" action="provider_regulation_list_action"/> -->
     </data>
 </odoo>

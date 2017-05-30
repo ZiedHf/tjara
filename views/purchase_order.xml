@@ -5,7 +5,7 @@
 				<field name="name">purchase_order.form</field>
 	            <field name="model">tjara.purchase_order</field>
 	            <field name="arch" type="xml">
-	                <form string="Demande d'achat Form">
+	                <form string="Purchase Order Form">
 	                	<header>
 <!-- 						    <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', '=', 'draft')]}"/> -->
 						    <!--The oe_highlight class gives the button a red color when it is saved.
@@ -54,7 +54,7 @@
             <field name="name">purchase_order.tree</field>
             <field name="model">tjara.purchase_order</field>
             <field name="arch" type="xml">
-                <tree string="Demande d'achat">
+                <tree string="Purchase Order">
                     <field name="name"/>
                     <field name="product_package_id"/>
                     <field name="qte"/>
@@ -81,12 +81,12 @@
             that is an action opening a view or a set of views
         -->
         <record model="ir.actions.act_window" id="purchase_order_list_action">
-            <field name="name">Demandes d'achat</field>
+            <field name="name">Purchase Orders</field>
             <field name="res_model">tjara.purchase_order</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Création du premier demande d'achat</p>
+                <p class="oe_view_nocontent_create">First Purchase Order</p>
             </field>
         </record>
 	</data>

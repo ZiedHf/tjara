@@ -13,28 +13,39 @@
 	                    <sheet>
 	                        <group>
 	                            <field name="name"/>
-	                            <field name="provider_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+	                            <field name="provider_id" attrs="{'readonly':['|', ('state', '!=', 'draft'), ('is_created', '=', True)]}"/>
 	                            <field name="is_created" invisible="1"/>
 	                            <field name="pricetoshow" invisible="1"/>
 	                        </group>
 	                    	<notebook>
-		                    	<page string="Purchase Invoice">
-		                    		<group>
-		                    			<field name="purchase_invoice_ids" widget="many2many" 
-	                    					attrs="{'readonly':['|', ('provider_id', '=', False), ('state', '!=', 'draft')], 'invisible':[('state', '=', 'canceled')]}"
-	                    					options="{'no_create': True, 'no_create_edit': True}"/>
-                    					<field name="pi_canceled" attrs="{'invisible':[('state', '!=', 'canceled')]}"/>
-		                    		</group>
-		                    		<group class="oe_subtotal_footer">
-		                            	<field name="total_price" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '=', 'canceled')]}" />
-		                            	<field name="total_price_canceled" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
-									</group>
-		                    	</page>
-		                    	<page string="Provider Regulation">
-		                    		<group>
-		                    			<field name="provider_regulation_ids"/>
-		                    		</group>
-		                    	</page>
+			                    	<page string="Purchase Invoice">
+			                    		<group>
+			                    			<field name="purchase_invoice_ids" widget="many2many" 
+		                    					attrs="{'readonly':['|', ('provider_id', '=', False), ('state', '!=', 'draft')], 'invisible':[('state', '=', 'canceled')]}"
+		                    					options="{'no_create': True, 'no_create_edit': True}"/>
+	                    					<field name="pi_canceled" widget="html" attrs="{'invisible':[('state', 'not in', ['canceled'])]}"/>
+			                    		</group>
+			                    		<group class="oe_subtotal_footer">
+			                            	<field string="Amount payed" name="total_price_pr"/>
+			                           		<field string="Amount to pay" name="amount_to_pay"/>
+			                            	<field name="total_price" string="Total Price" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '=', 'canceled')]}" />
+			                            	<field name="total_price_canceled" string="Total Price" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
+										</group>
+			                    	</page>
+			                    	<page string="Provider Regulation">
+			                    		<group>
+			                    			<field name="provider_regulation_ids" 
+			                    					context="{'form_view_ref':'tjara.provider_regulation_form_view2', 'default_purchase_payment_id': active_id}"
+			                    					attrs="{'readonly': ['|', ('state', '=', 'done'), ('is_created', '!=', True)]}"
+			                    					options="{'always_reload': True}"/>
+			                    		</group>
+			                    		<group class="oe_subtotal_footer">
+			                            	<field name="total_price_pr2" string="Amount payed"/>
+			                           		<field name="amount_to_pay2" string="Amount to pay"/>
+			                            	<field name="total_price2" string="Total Price" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '=', 'canceled')]}" />
+			                            	<field name="total_price_canceled2" string="Total Price" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
+										</group>
+			                    	</page>
 		                    </notebook>
 	                    </sheet>
 	                </form>

@@ -7,7 +7,7 @@
 	            <field name="arch" type="xml">
 	                <form string="Provider Regulation">
 	                	<header>
-						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': ['|', ('state','not in', ['draft']), ('is_created', '=', False)]}"/>
+						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': ['|', ('state','not in', ['done']), ('is_created', '=', False)]}"/>
 					    	<field name="state" widget="statusbar" statusbar_visible="draft, inprogress, done"/>
 						</header>
 	                    <sheet>
@@ -26,6 +26,31 @@
 	            </field>
         </record>
         
+        <record model="ir.ui.view" id="provider_regulation_form_view2">
+				<field name="name">provider_regulation.form</field>
+	            <field name="model">tjara.provider_regulation</field>
+	            <field name="arch" type="xml">
+	                <form string="Provider Regulation">
+	                	<header>
+						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': ['|', ('state','not in', ['done']), ('is_created', '=', False)]}"/>
+					    	<field name="state" widget="statusbar" statusbar_visible="draft, inprogress, done"/>
+						</header>
+	                    <sheet>
+	                        <group>
+	                            <field name="name"/>
+			                    <field name="purchase_payment_id" options="{'always_reload': True}" readonly="1"/>
+			                    <field name="provider_id"/>
+			                    <field name="price" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+			                    <!-- <field name="total_price" options="{'always_reload': True}"/>
+			                    <field name="total_price_pr" options="{'always_reload': True}"/>
+			                    <field name="amount_to_pay" options="{'always_reload': True}"/> -->
+	                            <field name="is_created" invisible="1"/>
+	                        </group>
+	                    </sheet>
+	                </form>
+	            </field>
+        </record>
+        
         <record model="ir.ui.view" id="provider_regulation_tree_view">
             <field name="name">provider_regulation.tree</field>
             <field name="model">tjara.provider_regulation</field>
@@ -33,9 +58,9 @@
                 <tree string="Provider Regulation" decoration-muted="state == 'canceled'">
                     <field name="name"/>
                     <field name="purchase_payment_id"/>
-					<!-- <field name="provider_id"/>
+					<field name="provider_id"/>
                     <field name="price"/>
-                    <field name="total_price"/> -->
+                    <field name="total_price"/>
                     <field name="state"/>
                 </tree>
             </field>

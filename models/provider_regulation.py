@@ -31,7 +31,6 @@ class provider_regulation(models.Model):
     @api.model
     def create(self, vals):
         if(vals['purchase_payment_id']):
-            
             purchase_payment = self.env['tjara.purchase_payment'].browse(vals['purchase_payment_id'])
             if(not(purchase_payment)):
                 raise ValidationError("A valid purchase payment is required.")
@@ -49,3 +48,21 @@ class provider_regulation(models.Model):
             vals['state'] = 'done'
             result = super(provider_regulation, self).create(vals)
             return result
+        
+    @api.one
+    def canceled_progressbar(self):
+        if(self.state == 'done'):
+            if(self.purchase_payment_id):
+                self.purchase_payment_id.total_price_pr = self.purchase_payment_id.total_price_pr - self.price
+#                 self.purchase_payment_id.amount_to_pay = self.purchase_payment_id.amount_to_pay + self.price
+                if(self.purchase_payment_id.total_price_pr >= self.purchase_payment_id.total_price):
+                    self.purchase_payment_id.state = 'done'
+                elif(self.purchase_payment_id.total_price_pr > 0)and(self.purchase_payment_id.total_price_pr < self.purchase_payment_id.total_price):
+                    self.purchase_payment_id.state = 'inprogress'
+                else:
+                    self.purchase_payment_id.state = 'draft'
+            self.write({
+                'state': 'canceled'
+            })
+        else:
+            raise ValidationError("This provider regulation not done yet.")
