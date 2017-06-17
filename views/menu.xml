@@ -5,40 +5,42 @@
         <menuitem id="main_tjara_menu" name="T-Jara"/>
         <!-- A first level in the left side menu is needed
              before using action= attribute -->
-        <menuitem id="tjara_menu" name="T-Jara"
-                  parent="main_tjara_menu"/>
+        <menuitem id="tjara_menu" name="T-Jara" parent="main_tjara_menu"/>
         
-		
+		<!-- Products -->
 		<menuitem id="tjara_sub_menu_1" name="Our Products" parent="tjara_menu"/>
-        <!-- PRODUCTS -->
         <menuitem id="products_menu" name="Products List" parent="tjara_sub_menu_1" action="product_list_action"/>
-        <!-- PACKAGES -->
         <menuitem id="packages_menu" name="Packages List" parent="tjara_sub_menu_1" action="package_list_action"/>
-        <!-- RELATION ENTRE PRODUIT ET EMBALLAGE -->
+        <menuitem id="categories_menu" name="Categories List" parent="tjara_sub_menu_1" action="category_list_action"/>
+        <menuitem id="sectors_menu" name="Sectors List" parent="tjara_sub_menu_1" action="sector_list_action"/>
 <!--         <menuitem id="product_packages_menu" name="Produit/Emballage" parent="tjara_sub_menu_1" action="product_package_list_action"/> -->
-        <!-- DEPOT -->
-        <menuitem id="depot_menu" name="Depot" parent="tjara_sub_menu_1" action="depot_list_action"/>
-        <!-- STOCK -->
-        <menuitem id="stock_menu" name="Stock" parent="tjara_sub_menu_1" action="stock_list_action"/>
-                
         
         
         
+        <!-- Partner -->
         <menuitem id="tjara_sub_menu_2" name="Partners" parent="tjara_menu"/>
-        <!-- PROVIDER -->
         <menuitem id="providers_menu" name="Providers" parent="tjara_sub_menu_2" action="provider_list_action"/>
-        <!-- client -->
         <menuitem id="clients_menu" name="Clients" parent="tjara_sub_menu_2" action="client_list_action"/>
         
         
-        
+        <!-- Purchase -->
 		<menuitem id="tjara_sub_menu_3" name="Purchase" parent="tjara_menu"/>
-        <menuitem id="purchase_order_menu" name="Provider Order" parent="tjara_sub_menu_3" action="purchase_order_list_action"/>
-<!--         <menuitem id="purchase_inquiry_menu" name="Demande d'offre" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/> -->
-<!--         <menuitem id="provider_order_menu" name="Commande d'achat" parent="tjara_sub_menu_3" action="provider_order_list_action"/> -->
+        <menuitem id="purchase_order_menu" name="Purchase Order" parent="tjara_sub_menu_3" action="purchase_order_list_action"/>
+        <menuitem id="purchase_inquiry_menu" name="Purchase Inquiry" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/>
         
-        <menuitem id="purchase_invoice_menu" name="Purchase Invoice" parent="tjara_sub_menu_3" action="purchase_invoice_list_action"/>
-        <menuitem id="purchase_payment_menu" name="Purchase Payment" parent="tjara_sub_menu_3" action="purchase_payment_list_action"/>
+        <!-- Provider Order -->
+        <menuitem id="tjara_sub_menu_4" name="Provider Order" parent="tjara_menu"/>
+        <menuitem id="provider_order_menu" name="Provider Order" parent="tjara_sub_menu_4" action="provider_order_list_action"/>
+        <menuitem id="voucher_entry_menu" name="Voucher Entry" parent="tjara_sub_menu_4" action="voucher_entry_list_action"/>
+        
+        
+        <!-- Stock -->
+        <menuitem id="tjara_sub_menu_5" name="Depots and Stocks" parent="tjara_menu"/>
+        <menuitem id="depot_menu" name="Depot" parent="tjara_sub_menu_5" action="depot_list_action"/>
+        <menuitem id="stock_menu" name="Stock" parent="tjara_sub_menu_5" action="stock_list_action"/>
+        
+        <!-- <menuitem id="purchase_invoice_menu" name="Purchase Invoice" parent="tjara_sub_menu_4" action="purchase_invoice_list_action"/> -->
+<!--         <menuitem id="purchase_payment_menu" name="Purchase Payment" parent="tjara_sub_menu_3" action="purchase_payment_list_action"/> -->
 <!--         <menuitem id="provider_regulation_menu" name="Provider Regulation" parent="tjara_sub_menu_3" action="provider_regulation_list_action"/> -->
     </data>
 </odoo>

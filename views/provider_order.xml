@@ -5,43 +5,56 @@
 				<field name="name">provider_order.form</field>
 	            <field name="model">tjara.provider_order</field>
 	            <field name="arch" type="xml">
-	                <form string="Commande d'achat" create="false">
+	                <form string="Commande d'achat">
 	                	<header>
-						    <button string="In Progress" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state','not in', ['draft'])]}"/>				    
+						    <button string="Create Voucher Entry" type="object" name="createVoucherEntry" attrs="{'invisible': ['|', ('state', '!=', 'inprogress'), ('is_created', '=', False)]}"/>
+						    <button string="In Progress" type="object" name="inprogress_progressbar" attrs="{'invisible': ['|', ('state','not in', ['draft']), ('is_created', '=', False)]}"/>				    
 						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state','not in', ['inprogress'])]}"/>
 						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': [('state','not in', ['inprogress'])]}"/>
 					    	<field name="state" widget="statusbar" statusbar_visible="draft, inprogress, done"/>
 						</header>
 	                    <sheet>
-	                        <group>
-	                            <group>
+	                    	<group>
+		                        <group>
 		                            <field name="name"/>
-	<!-- 	                            <field name="product_package_id" widget="many2one" options="{'no_open':True,'no_create':1,'no_create_edit':1}" /> -->
-		                            <field name="purchase_order_id"/>
-		                            <field name="provider_id"/>
-		                            <field name="product"/>
-	                            </group>
-	                            <group>
-	                            	<field name="qte"/>
-	                            	<field name="qte_prpk"/>
-	                            	<field name="unity"/>
-	                            	<field name="qte_prpk_unity"/>
-	                            	<field name="qte_total"/>
-	                            	<field name="qte_total_unity"/>
-	                            </group>
+	                                <field name="purchase_order_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                                <field name="purchase_inquiry_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                            	<field name="is_created" invisible="1"/>
+	                            	<field name="provider_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+	                            	<!-- <field name="purchase_invoice_id"/> -->
+		                        </group>
+		                        <group>
+		                        	<field name="voucher_entry_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+		                        	<field name="datefinal_order" attrs="{'readonly': [('state', '=', 'done')]}"/>
+		                        	<field name="date_order" attrs="{'readonly': [('state', '=', 'done')]}"/>
+		                        	<field name="description" attrs="{'readonly': [('state', '=', 'done')]}"/>
+		                        </group>
 	                        </group>
 	                        <notebook>
-		                    	<page string="Informations">
-		                    		<group>
-		                    			<field name="price"/>
-		                    			<field name="date_order"/>
-		                    			<field name="datefinal_order"/>
-		                    		</group>
-		                    	</page>
-		                    	<page string="Description">
-		                    		<group>
-		                    			<field name="description"/>
-		                    		</group>
+		                    	<page string="Products">
+		                    		<field name="ref_provider_order_pp_ids" attrs="{'readonly': [('state', '=', 'done')]}">
+		                            	<tree editable="bottom">
+		                            		<field name="product_package_id"/>
+		                            		<field name="qte"/>
+		                            		<field name="qte_prpk"/>
+		                            		<field name="unity"/>
+		                            		<field name="qte_prpk_unity"/>
+		                            		<field name="qte_total_unity"/>
+		                            		<field name="discount"/>
+		                            		<field name="tax"/>
+		                            		<field name="initial_price"/>
+		                            		<field name="ht_price"/>
+		                            		<field name="price"/>
+		                            	</tree>
+		                            </field>
+	                        		<group class="oe_subtotal_footer">
+		                            	<field name="total_initial_price"/>
+		                            	<field name="total_ht_price"/>
+		                            	<field name="total_price" class="oe_subtotal_footer_separator"/>
+									</group> 
+									<group>
+										<field class="oe_left" name="amount_to_text"/>
+									</group>
 		                    	</page>
 		                    </notebook>
 	                    </sheet>
@@ -53,13 +66,9 @@
             <field name="name">provider_order.tree</field>
             <field name="model">tjara.provider_order</field>
             <field name="arch" type="xml">
-                <tree string="Demande d'achat" create="false">
+                <tree string="Provider Order">
                     <field name="name"/>
-                    <field name="purchase_order_id"/>
-                    <field name="provider_id"/>
-                    <field name="qte"/>
-                    <field name="qte_prpk"/>
-                    <field name="qte_total_unity"/>
+                    <field name="total_price"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -69,14 +78,9 @@
             <field name="name">provider_order.tree</field>
             <field name="model">tjara.provider_order</field>
             <field name="arch" type="xml">
-                <tree string="Demande d'achat">
+                <tree string="Provider Order">
                     <field name="name"/>
-                    <field name="product_id"/>
-                    <field name="qte"/>
-                    <field name="qte_prpk"/>
-                    <field name="qte_total_unity"/>
-                    <field name="state"/>
-                    <field name="price"/>
+                    <field name="total_price"/>
                 </tree>
             </field>
         </record>

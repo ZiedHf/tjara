@@ -1,22 +1,46 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api, exceptions, _
 from __builtin__ import list
 
 class product(models.Model):
     _name = 'tjara.product'
     
-    name = fields.Char(string="Nom du produit")
-    description = fields.Text(string="Description du produit")
-    add_date = fields.Date(string="Date d'ajout au stock")
-    provider_ids = fields.Many2many('tjara.provider', ondelete='cascade', string="Provider", index=True)
-    client_ids = fields.Many2many('tjara.client', ondelete='cascade', string="Client", index=True)
-    product_package_ids = fields.One2many('tjara.product_package', 'product_id', string='Package')
-        
+    name = fields.Char(string=_("Product Name"), required=True)
+    description = fields.Text(string="Product Description")
+    add_date = fields.Date(string="Add date")
+    product_package_ids = fields.One2many('tjara.product_package', 'product_id', ondelete='cascade',  string='Package')
+    
+    categories_ids = fields.Many2many('tjara.category', string='Category', ondelete='cascade')
+    sectors_ids = fields.Many2many('tjara.sector', string='Sector', ondelete='cascade')
+    
+    other_name = fields.Char(string="Other name")
+    french_name = fields.Char(string="French name")
+    english_name = fields.Char(string="English name")
+    code = fields.Char(string="Code Product")
+    ngp = fields.Char(string="NGP")
+    
+    weight = fields.Char(string="Weight")
+    width = fields.Char(string="Width")
+    height = fields.Char(string="Height")
+    length = fields.Char(string="Length")
+    
+    purchase_price = fields.Float(string="Purchase Price", digits=(12, 3))
+    sale_price = fields.Float(string="Sale Price", digits=(12, 3))
+    sale_margin = fields.Float(string="Sale Margin", digits=(12, 3))
+    
+    is_created = fields.Boolean(string='Created', default=False)
+    
     _sql_constraints = [
         ('name_unique', 'unique (name)', 'This name is already exists...!')
     ]
     
+    @api.model
+    def create(self, vals):
+        vals['is_created'] = True
+        result = super(product, self).create(vals)
+        return result 
+        
 #     @api.multi
 #     @api.onchange('package_id')
 #     def onchange_package_id(self):

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="voucher_entry_form_view">
+				<field name="name">voucher_entry.form</field>
+	            <field name="model">tjara.voucher_entry</field>
+	            <field name="arch" type="xml">
+	                <form string="Voucher Entry">
+	                	<header>
+	                		<button string="Add to stock" type="object" name="addToStock"  attrs="{'invisible': ['|', ('state', 'in', ['done']), ('is_created', '!=', True)]}"/>
+	                		<field name="state" widget="statusbar" statusbar_visible="draft, done"/>
+	                	</header>
+	                    <sheet>
+	                        <group>
+		                        <group>
+		                            <field name="name"/>
+		                            <field name="provider_order_id"/>
+		                            <field name="date_order"/>
+		                            <field name="datefinal_order"/>
+		                        </group>
+		                        <group>
+		                        	<field name="provider_id"/>
+		                        	<field name="depot_id"/>
+		                        	<field name="description"/>
+		                        	<field name="is_created" invisible="1"/>
+		                        </group>
+	                        </group>
+	                        <notebook>
+		                    	<page string="Products">
+		                    		<field name="ref_ve_pp_ids">
+		                            	<tree editable="bottom">
+		                            		<field name="product_package_id"/>
+		                            		<field name="qte"/>
+		                            		<field name="qte_prpk"/>
+		                            		<field name="unity"/>
+		                            		<field name="qte_prpk_unity"/>
+		                            		<!-- <field name="qte_total"/> -->
+		                            		<field name="qte_total_unity"/>
+		                            	</tree>
+		                            </field>
+		                    	</page>
+		                    </notebook>
+	                    </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="voucher_entry_tree_view">
+            <field name="name">voucher_entry.tree</field>
+            <field name="model">tjara.voucher_entry</field>
+            <field name="arch" type="xml">
+                <tree string="Voucher Entry">
+                    <field name="name"/>
+                    <field name="depot_id"/>
+                    <field name="provider_id"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="voucher_entry_search_view">
+            <field name="name">voucher_entry.search</field>
+            <field name="model">tjara.voucher_entry</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+    	
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="voucher_entry_list_action">
+            <field name="name">Voucher Entry</field>
+            <field name="res_model">tjara.voucher_entry</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create your first voucher entry</p>
+            </field>
+        </record>
+	</data>
+</odoo>

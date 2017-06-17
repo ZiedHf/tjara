@@ -5,87 +5,92 @@
 				<field name="name">purchase_inquiry.form</field>
 	            <field name="model">tjara.purchase_inquiry</field>
 	            <field name="arch" type="xml">
-	                <form string="Demande d'offre Form">
+	                <form string="Purchase Inquiry Form">
 	                	<header>
-						    <!-- <button string="Set to draft" type="object" name="draft_progressbar" attrs="{'invisible': [('state', 'in', ['draft', 'sent', 'accepted', 'inprogress'])]}"/> -->
-						    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
-						    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>						    
-						    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['received'])]}"/>
-						    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['received'])]}"/>
-						    <button string="Create Command" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
-						    <field name="state" widget="statusbar" statusbar_visible="draft, sent, received, accepted, refused"/>
+						    <button string="Import Products" type="object" name="import_products" attrs="{'invisible': [('purchase_order_id','=', False)]}"/>
 						</header>
 	                    <sheet>
 	                        <group>
 	                            <field name="name"/>
-                                <field name="purchase_order_id" options="{'no_create':1,'no_create_edit':1}" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-                            	<field name="provider_id" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-                            	<field name="date_inquiry" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-                            	<field name="datefinal_inquiry" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
+                                <field name="purchase_order_id"/>
+                            	<field name="provider_id"/>
 	                        </group>
-	                        <group col="6">
-                                <field name="product" placeholder="Product Name"/>
-                                <field name="qte" placeholder="Nbr Emballage"/>
-                                <field name="qte_total_unity" placeholder="Qte Totale"/>
-	                        </group>
-	                    	<notebook>
-		                    	<page string="Informations">
-		                    		<group>
-		                    			<field name="price" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-		                    		</group>
-		                    	</page>
-		                    	<page string="Description">
-		                    		<label for="description" string="Description"/>
-		                    		<field name="description" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-		                    	</page>
-		                    </notebook>
+	                        <notebook>
+	                        	<page string="Products">
+	                        		<field name="ref_pi_pp_ids">
+		                            	<tree editable="False">
+		                            		<!-- <field name="product_package_id" readonly="True"/> -->
+		                            		<field name="product_package_id"/>
+		                            		<field name="qte"/>
+		                            		<field name="qte_prpk"/>
+		                            		<field name="unity"/>
+		                            		<field name="qte_prpk_unity"/>
+		                            		<field name="qte_total_unity"/>
+		                            		<field name="discount"/>
+		                            		<field name="tax"/>
+		                            		<field name="initial_price"/>
+		                            		<field name="ht_price"/>
+		                            		<field name="price"/>
+		                            	</tree>
+		                            </field>
+	                        		<group class="oe_subtotal_footer">
+		                            	<field name="total_initial_price"/>
+		                            	<field name="total_ht_price"/>
+		                            	<field name="total_price" class="oe_subtotal_footer_separator"/>
+									</group>  
+	                        	</page>
+	                        </notebook>
 	                    </sheet>
 	                </form>
 	            </field>
         </record>
-        
-        <record model="ir.ui.view" id="purchase_inquiry_form_view2">
-			<field name="name">purchase_inquiry.form</field>
-            <field name="model">tjara.purchase_inquiry</field>
-            <field name="arch" type="xml">
-        		<form string="Demande d'offre Form">
-                	<header>
-					    <button string="Sent" type="object" name="sent_progressbar" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
-					    <button string="Received" type="object" name="received_progressbar" attrs="{'invisible': [('state', 'not in', ['sent'])]}"/>						    
-					    <button string="Accepted" type="object" name="accepted_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['received'])]}"/>
-					    <button string="Refused" type="object" name="refused_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['received'])]}"/>
-					    <button string="Create Command" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state','!=','accepted')]}"/>
-					    <field name="state" widget="statusbar" statusbar_visible="draft, sent, received, accepted, refused"/>
-					</header>
-                    <sheet>
-                        <group>
-                            <field name="name"/>
-                               <field name="purchase_order_id" readonly="1"/>
-                           	<field name="provider_id" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-                           	<field name="date_inquiry" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-                           	<field name="datefinal_inquiry" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-                        </group>
-                        <group col="6">
-                               <field name="product" placeholder="Product Name"/>
-                               <field name="qte" placeholder="Nbr Emballage"/>
-                               <field name="qte_total_unity" placeholder="Qte Totale"/>
-                        </group>
-                    	<notebook>
-	                    	<page string="Informations">
-	                    		<group>
-	                    			<field name="price" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-	                    		</group>
-	                    	</page>
-	                    	<page string="Description">
-	                    		<label for="description" string="Description"/>
-	                    		<field name="description" attrs="{'readonly': [('state', 'in', ['accepted', 'refused'])]}"/>
-	                    	</page>
-	                    </notebook>
-                    </sheet>
-                </form>
-            </field>
+		
+		<record model="ir.ui.view" id="purchase_inquiry_form_view2">
+				<field name="name">purchase_inquiry.form</field>
+	            <field name="model">tjara.purchase_inquiry</field>
+	            <field name="arch" type="xml">
+	                <form string="Purchase Inquiry Form">
+	                	<header>
+						    <button string="Import Products" type="object" name="import_products"/>
+						</header>
+	                    <sheet>
+	                        <group>
+	                            <field name="name"/>
+                                <field name="purchase_order_id" readonly='1'/>
+                            	<field name="provider_id"/>
+                            	<field name="is_created" invisible="1"/>
+	                        </group>
+	                        <notebook>
+	                        	<page string="Products">
+	                        		<!-- <field name="ref_pi_pp_ids" options="{'no_create': True}" attrs="{'readonly': [('is_created','=', False)]}"> -->
+	                        		<field name="ref_pi_pp_ids">
+		                            	<tree editable="bottom">
+		                            		<!-- <field name="product_package_id" readonly="True"/> -->
+		                            		<field name="product_package_id"/>
+		                            		<field name="qte"/>
+		                            		<field name="qte_prpk"/>
+		                            		<field name="unity"/>
+		                            		<field name="qte_prpk_unity"/>
+		                            		<field name="qte_total_unity"/>
+		                            		<field name="discount"/>
+		                            		<field name="tax"/>
+		                            		<field name="initial_price"/>
+		                            		<field name="ht_price"/>
+		                            		<field name="price"/>
+		                            	</tree>
+		                            </field>
+	                        		<group class="oe_subtotal_footer">
+		                            	<field name="total_initial_price"/>
+		                            	<field name="total_ht_price"/>
+		                            	<field name="total_price" class="oe_subtotal_footer_separator"/>
+									</group> 
+	                        	</page>
+	                        </notebook>
+	                    </sheet>
+	                </form>
+	            </field>
         </record>
-						                
+        				                
         <record model="ir.ui.view" id="purchase_inquiry_tree_view">
             <field name="name">purchase_inquiry.tree</field>
             <field name="model">tjara.purchase_inquiry</field>
@@ -93,13 +98,7 @@
                 <tree string="Demande d'offre">
                     <field name="name"/>
                     <field name="purchase_order_id"/>
-                    <field name="product"/>
-                    <field name="qte_total_unity"/>
-                    <field name="qte"/>
-                    <field name="datefinal_inquiry"/>
                     <field name="provider_id"/>
-                    <field name="price"/>
-                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -120,12 +119,12 @@
             that is an action opening a view or a set of views
         -->
         <record model="ir.actions.act_window" id="purchase_inquiry_list_action">
-            <field name="name">Demande d'offre de prix</field>
+            <field name="name">Purchase Inquiry</field>
             <field name="res_model">tjara.purchase_inquiry</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Création du premier demande d'offre</p>
+                <p class="oe_view_nocontent_create">Your first purchase inquiry</p>
             </field>
         </record>
 	</data>

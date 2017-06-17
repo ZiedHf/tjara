@@ -10,6 +10,11 @@
                         <group>
                             <field name="name"/>
                         </group>
+                        <notebook>
+                        	<page string="Stock">
+                        		<field name="stock_ids"/>
+                        	</page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

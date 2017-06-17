@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <report file="tjara.report_provider_order" id="r_provider_order"
+	            model="tjara.provider_order" name="tjara.report_provider_order"
+	            report_type="qweb-pdf" string="Provider Order"/>
+	     
+        
+        <template id="report_provider_order">
+            <t t-call="report.html_container">
+                <t t-as="o" t-foreach="docs">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+
+                            <h3>Provider Order :
+                                <span t-field="o.name"/>
+                            </h3>
+                            <div class="col-xs-6 pull-left">
+                                <p>
+                                    Provider :
+                                    <span t-field="o.provider_id"/>
+                                    <br/>
+                                    Date :
+                                    <span t-field="o.date_order"/>
+                                    <br/>
+                                    Final date :
+                                    <span t-field="o.datefinal_order"/>
+                                </p>
+                            </div>
+
+                            <table class="table table-condensed">
+                                <thead style="border:solid 2px; border-color:#0C6592">
+                                    <tr>
+
+                                        <th class="text-left">Product</th>
+                                        <th class="text-left">Qte</th>
+                                        <th class="text-left">Qte/Package</th>
+                                        <th class="text-left">Qte Total</th>
+                                        <th class="text-left">Discount</th>
+                                        <th class="text-left">TVA</th>
+                                        <th class="text-left">Initial Price</th>
+                                        <th class="text-left">HT Price</th>
+                                        <th class="text-left">Final Price</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody style="border:solid 2px; border-color:#0C6592">
+                                    <t t-foreach="o.ref_provider_order_pp_ids" t-as="ref_pp">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="ref_pp.product_package_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.qte"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.qte_prpk_unity"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.qte_total_unity"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.discount"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.tax"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.initial_price"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.ht_price"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="ref_pp.price"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+
+
+                            <div class="row" name="total">
+                                <div class="col-xs-4 pull-right">
+                                    <table class="table table-condensed" style="border:solid 2px; border-color:#0C6592">
+                                        
+                                        <tr class="border-black">
+                                            <td>
+                                                <strong>Total Initial Price</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="o.total_initial_price"/>
+                                                <span t-field="o.currency_id"/>
+                                            </td>
+                                            <br/>
+                                        </tr>
+                                        
+                                        <tr class="border-black">
+                                            <td>
+                                                <strong>Total HT Price</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="o.total_ht_price"/>
+                                                <span t-field="o.currency_id"/>
+                                            </td>
+                                            <br/>
+                                        </tr>
+                                        
+                                        <tr class="border-black">
+                                            <td>
+                                                <strong>Total Price</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="o.total_price"/>
+                                                <span t-field="o.currency_id"/>
+                                            </td>
+                                            <br/>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <div class="col-xs-6 pull-left">
+                                <p >
+                                    <strong>Amount in text :</strong>
+                                    <br/>
+                                    <span t-field="o.amount_to_text"/>
+                                </p>
+                            </div>
+
+
+                        </div>
+
+                    </t>
+
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -6,10 +6,11 @@ from validate import is_string
 class stock(models.Model):
     _name = 'tjara.stock'
     
-    name = fields.Char(string='Nom Stock', default='Unknown', compute='_compute_name')
+    name = fields.Char(string='Stock name', default='Unknown', compute='_compute_name', store=True)
     depot_id = fields.Many2one('tjara.depot', ondelete='cascade', string="Depot", index=True, required=True)
     product_package_id = fields.Many2one('tjara.product_package', ondelete='cascade', string="Product _ Package", index=True, required=True)
-    in_stock = fields.Integer(string="Stock", required=True)
+    unity = fields.Selection(related='product_package_id.package_id.unity', string="Unity", index=True, required=True)
+    in_stock = fields.Float(string="Stock", required=True)
     
     _sql_constraints = [
         ('relation_unique', 'unique (depot_id, product_package_id)', 'This relation is already exists...!')

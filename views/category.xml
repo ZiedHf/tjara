@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+        <record model="ir.ui.view" id="category_form_view">
+				<field name="name">category.form</field>
+	            <field name="model">tjara.category</field>
+	            <field name="arch" type="xml">
+	                <form string="Category Form">
+	                    <sheet>
+	                        <group>
+	                        	<field name="name"/>
+	                        	<field name="description"/>
+	                        </group>
+                        </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="category_tree_view">
+            <field name="name">category.tree</field>
+            <field name="model">tjara.category</field>
+            <field name="arch" type="xml">
+                <tree string="Category">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="category_search_view">
+            <field name="name">category.search</field>
+            <field name="model">tjara.category</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="category_list_action">
+            <field name="name">Categories</field>
+            <field name="res_model">tjara.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create your first category</p>
+            </field>
+        </record>
+	</data>
+</odoo>

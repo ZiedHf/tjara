@@ -9,29 +9,14 @@ class purchase_order(models.Model):
 #     name = fields.Char(string='Purchase Name', default=lambda self: self.env['ir.sequence'].next_by_code('tjara.purchase_order.seq'))
     name = fields.Char(string='Purchase Name', default=lambda self: self._get_next_purchasename(), store=True, readonly=True)
     state = fields.Selection([('draft', 'Draft'), ('accepted', 'Accepted'), ('inprogress', 'In progress'), ('done', 'Done'), ('canceled', 'Canceled')], string='State', default='draft')
-#     product_package_ids = fields.Many2many('tjara.product_package', ondelete='cascade', string="Product _ Package", index=True)
-    product_package_id = fields.Many2one('tjara.product_package', ondelete='cascade', string="Product _ Package", index=True, required=True) 
-    qte = fields.Integer(string='Quantité / Nombre', required=True)
-    qte_prpk = fields.Integer(related='product_package_id.qte', store=True, string="Qte ou Nbr")
-    unity = fields.Selection(related='product_package_id.package_id.unity', store=True, string="Unité")
-    qte_prpk_unity = fields.Char(string="Qte ou Nbr / Unité", store=True, compute="_compute_qte_prpk_unity")
-    qte_total = fields.Integer(string='Quantité totale', compute='_compute_qte_total', store=True)
-    qte_total_unity = fields.Char(string="Quantité Totale", compute="_compute_qte_total_unity", store=True)
-    purchase_inquiry_ids = fields.One2many('tjara.purchase_inquiry', 'purchase_order_id', string="Demande d'offre")
-    provider_order_ids = fields.One2many('tjara.provider_order', 'purchase_order_id', string="Provider Order")
-    
+    ref_po_pp_ids = fields.One2many('tjara.ref_po_pp', 'purchase_order_id', ondelete='cascade', string="Ref po pp", required=True)
+    priority = fields.Selection([('low', 'Low'), ('medium', 'Medium'), ('high', 'High')], string='Priority', default='medium')
+    add_date = fields.Date(string="Date")
+    purchase_inquiry_ids = fields.One2many('tjara.purchase_inquiry', 'purchase_order_id', string="Purchase Inquiry")
     is_created = fields.Boolean(string='Created', default=False)
+    provider_id = fields.Many2one('tjara.provider', string="Provider suggested", ondelete="cascade")
+    
 
-    _sql_constraints = [
-        ('check_qte', 'Error', 'Please set a valid quantity')
-    ]
-    
-    @api.constrains('qte')
-    def check_qte(self):
-        for rec in self:
-            if(rec.qte < 1):
-                raise ValidationError("Please set a valid quantity : %s" % rec.qte)
-    
     @api.model
     def _get_next_purchasename(self):
         sequence = self.env['ir.sequence'].search([('code','=','tjara.purchase_order.seq')])
@@ -42,28 +27,32 @@ class purchase_order(models.Model):
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('tjara.purchase_order.seq')
         vals['is_created'] = True
+        
+#         for ref_line in vals['ref_po_pp_ids']:
+#             
+            
         result = super(purchase_order, self).create(vals)
         return result 
 
-    @api.onchange('product_package_id', 'qte_prpk')
-    @api.depends('qte')
-    def _compute_qte_total(self):
-        for rec in self:
-            if(isinstance(rec.qte, int))and(isinstance(rec.qte_prpk, int)):
-                rec.qte_total = rec.qte * rec.qte_prpk
-    
-    @api.depends('qte', 'qte_prpk', 'unity')
-    def _compute_qte_total_unity(self):
-        for rec in self:
-            if((rec.unity)and(isinstance(rec.qte_total, int))):
-                rec.qte_total_unity = str(rec.qte * rec.qte_prpk) + " " + rec.unity
-        
-    @api.multi
-    @api.depends('qte_prpk', 'unity')
-    def _compute_qte_prpk_unity(self):
-        for rec in self:
-            if((rec.unity)and(isinstance(rec.qte_prpk, int))and(rec.qte_prpk > 0)):
-                rec.qte_prpk_unity = str(rec.qte_prpk) + str(rec.unity) + " / Package"
+#     @api.onchange('product_package_id', 'qte_prpk')
+#     @api.depends('qte')
+#     def _compute_qte_total(self):
+#         for rec in self:
+#             if(isinstance(rec.qte, int))and(isinstance(rec.qte_prpk, int)):
+#                 rec.qte_total = rec.qte * rec.qte_prpk
+#     
+#     @api.depends('qte', 'qte_prpk', 'unity')
+#     def _compute_qte_total_unity(self):
+#         for rec in self:
+#             if((rec.unity)and(isinstance(rec.qte_total, int))):
+#                 rec.qte_total_unity = str(rec.qte * rec.qte_prpk) + " " + rec.unity
+#         
+#     @api.multi
+#     @api.depends('qte_prpk', 'unity')
+#     def _compute_qte_prpk_unity(self):
+#         for rec in self:
+#             if((rec.unity)and(isinstance(rec.qte_prpk, int))and(rec.qte_prpk > 0)):
+#                 rec.qte_prpk_unity = str(rec.qte_prpk) + str(rec.unity) + " / Package"
                 
     #This function is triggered when the user clicks on the button 'Set to concept'
     @api.one
@@ -152,36 +141,39 @@ class purchase_order(models.Model):
         
     @api.multi
     def canceled_progressbar(self):
-        #check if there is provider orders done or in progress
-        isset_provider_orders = True
-        for rec in self.provider_order_ids:
-            if((rec.state == 'done')or(rec.state == 'inprogress')or(rec.state == 'invoiced')):
-                isset_provider_orders = False
-                break
-        
-        if(not(isset_provider_orders)):
-            raise ValidationError("You can't cancel this purchase order. There is provider orders in progress, done or invoiced.")
-            return False
-        
-        #check if there is provider orders done or in progress    
-        isset_purchase_inquiries = True
-        for rec in self.purchase_inquiry_ids:
-            if((rec.state == 'sent')or(rec.state == 'received')):
-                isset_purchase_inquiries = False
-                break
-        
-        if(not(isset_purchase_inquiries)):    
-            return {
-                'name': 'Are you sure?',
-                'type': 'ir.actions.act_window',
-                'res_model': 'tjara.confirm_wizard',
-                'view_mode': 'form',
-                'view_type': 'form',
-                'target': 'new',
-                'context':{'active_id': self.id}
-            }
-        
-        self.set_state_to_canceled(False)
+        self.write({
+            'state': 'canceled',
+        })
+#         #check if there is provider orders done or in progress
+#         isset_provider_orders = True
+#         for rec in self.provider_order_ids:
+#             if((rec.state == 'done')or(rec.state == 'inprogress')or(rec.state == 'invoiced')):
+#                 isset_provider_orders = False
+#                 break
+#         
+#         if(not(isset_provider_orders)):
+#             raise ValidationError("You can't cancel this purchase order. There is provider orders in progress, done or invoiced.")
+#             return False
+#         
+#         #check if there is provider orders done or in progress    
+#         isset_purchase_inquiries = True
+#         for rec in self.purchase_inquiry_ids:
+#             if((rec.state == 'sent')or(rec.state == 'received')):
+#                 isset_purchase_inquiries = False
+#                 break
+#         
+#         if(not(isset_purchase_inquiries)):    
+#             return {
+#                 'name': 'Are you sure?',
+#                 'type': 'ir.actions.act_window',
+#                 'res_model': 'tjara.confirm_wizard',
+#                 'view_mode': 'form',
+#                 'view_type': 'form',
+#                 'target': 'new',
+#                 'context':{'active_id': self.id}
+#             }
+#         
+#         self.set_state_to_canceled(False)
 
     @api.multi
     def set_purchaseinqueries_to_refused(self, purchase_order_id):
@@ -202,10 +194,17 @@ class purchase_order(models.Model):
             self.write({
                 'state': 'canceled',
             })
-#         if(not(isset_provider_order)):
-#                 raise ValidationError("You can't cancel this purchase order. There is provider orders in progress or done.")
-#         else:
-#             self.write({
-#                 'state': 'canceled',
+            
+#     @api.one
+#     def create_purchase_inquiry(self):
+#         if(self.state == 'inprogress'):
+#             record = self.env['tjara.purchase_inquiry'].create({
+#                 'purchase_order_id':self.id
 #             })
-        
+#             if(record):
+#                 for ref in self.ref_po_pp_ids:
+#                     record_ref_pi = self.env['tjara.ref_pi_pp'].create({
+#                         'purchase_order_id':record.id,
+#                         'ref_po_pp_id':ref.id
+#                     })
+            

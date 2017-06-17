@@ -5,7 +5,7 @@
             <field name="name">package.form</field>
             <field name="model">tjara.package</field>
             <field name="arch" type="xml">
-                <form string="Emballage Form">
+                <form string="Package Form">
                     <sheet>
                         <group>
                             <field name="name"/>
@@ -16,7 +16,6 @@
                                 <field name="description"/>
                             </page>
                         </notebook>
-                        
                     </sheet>
                 </form>
             </field>
@@ -27,9 +26,10 @@
             <field name="name">package.tree</field>
             <field name="model">tjara.package</field>
             <field name="arch" type="xml">
-                <tree string="Emballage Tree">
+                <tree string="Package Tree">
                     <field name="name"/>
                     <field name="unity"/>
+                    <field name="description"/>
                 </tree>
             </field>
         </record>
@@ -40,22 +40,18 @@
             <field name="arch" type="xml">
                 <search>
                     <field name="name"/>
+                    <field name="unity"/>
                 </search>
             </field>
         </record>
-    	
-        <!-- window action -->
-        <!--
-            The following tag is an action definition for a "window action",
-            that is an action opening a view or a set of views
-        -->
+        
         <record model="ir.actions.act_window" id="package_list_action">
-            <field name="name">Emballages</field>
+            <field name="name">Packages</field>
             <field name="res_model">tjara.package</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Création du premier emballage</p>
+                <p class="oe_view_nocontent_create">Create your first package</p>
             </field>
         </record>
 	</data>

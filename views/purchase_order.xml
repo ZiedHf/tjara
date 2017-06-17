@@ -12,38 +12,45 @@
 						    It is usually used to indicate the expected behaviour. -->
 						    <!-- attrs="{'invisible': ['|',('state', 'in', ['accepted', 'accepted'])]}" -->
 						    <button string="Accepted" type="object" name="accepted_progressbar" attrs="{'invisible': ['|', ('state', 'in', ['done', 'accepted', 'inprogress', 'canceled']), ('is_created', '!=', True)]}"/>
-						    <button string="Send" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state', 'in', ['draft', 'inprogress', 'done', 'canceled'])]}"/>
-						    <button string="Create Provider Order" help="Create Provider Order" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'accepted', 'done', 'canceled'])]}"/>
-						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'accepted', 'done', 'canceled'])]}"/>
+						    <button string="In progress" type="object" name="inprogress_progressbar" attrs="{'invisible': ['|', ('state', 'not in', ['accepted']), ('is_created', '!=', True)]}"/>
+						    <!-- <button string="Send" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state', 'in', ['draft', 'inprogress', 'done', 'canceled'])]}"/> -->
+						    <!-- <button string="Create Provider Order" help="Create Provider Order" type="object" name="createPO_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'accepted', 'done', 'canceled'])]}"/> -->
+						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'done', 'canceled'])]}"/>
 						    <button string="Canceled" type="object" name="canceled_progressbar" class="oe_highlight" attrs="{'invisible': ['|', ('state', 'in', ['done', 'canceled']), ('is_created', '!=', True)]}"/>
 						    <!--This will create the statusbar, thanks to the widget. -->
-						    <field name="state" widget="statusbar" statusbar_visible="draft, inprogress, accepted, done"/>
+						    <field name="state" widget="statusbar" statusbar_visible="draft, accepted, done"/>
 						</header>
 	                    <sheet>
 	                        <group>
-	                            <group>
-		                            <field name="name"/>
-	<!-- 	                            <field name="product_package_id" widget="many2one" options="{'no_open':True,'no_create':1,'no_create_edit':1}" /> -->
-		                            <field name="product_package_id" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}" options="{'no_create':1,'no_create_edit':1}"/>
-		                            <field name="qte" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
-	                            </group>
-	                            <group>
-	                            	<field name="qte_prpk" readonly="1" invisible="1"/>
-	                            	<field name="unity" readonly="1" invisible="1"/>
-	                            	<field name="qte_prpk_unity" readonly="1"/>
-	                            	<field name="qte_total" invisible="1"/>
-	                            	<field name="qte_total_unity" readonly="1"/>
-	                            	<field name="is_created" invisible='1'/>
-	                            </group>
+	                            <field name="name"/>
+	                            <field name="priority"/>
+	                            <field name="add_date"/>
+	                            <field name="provider_id"/>
+	                            <field name="is_created" invisible="1"/>
 	                        </group>
 	                        <notebook>
-	                            <page string="Purchase Inquiries">                                	
-<!-- 	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id}" options="{'always_reload': True}"/> -->
-	                            	<field name="purchase_inquiry_ids" context="{'default_purchase_order_id': active_id, 'form_view_ref':'tjara.purchase_inquiry_form_view2'}" attrs="{'readonly': ['|', ('state', '!=', 'inprogress'), ('is_created', '!=', True)]}"/>
-	                            </page>
-		                    	<page string="Provider Orders">
-		                    		<field name="provider_order_ids" editable="1"/>
-		                    	</page>
+	                        	<page string="Products">
+	                        		<field name="ref_po_pp_ids" attrs="{'readonly': [('state','not in', ['draft', 'accepted'])]}">
+		                            	<tree editable="bottom">
+		                            		<field name="product_package_id"/>
+		                            		<field name="qte"/>
+		                            		<field name="qte_prpk"/>
+		                            		<field name="unity"/>
+		                            		<field name="qte_prpk_unity"/>
+		                            		<field name="qte_total"/>
+		                            		<field name="qte_total_unity"/>
+		                            	</tree>
+		                            </field>
+	                        	</page>
+	                        	<page string="Purchase Inquiry">
+	                        		<field name="purchase_inquiry_ids" context="{'form_view_ref':'tjara.purchase_inquiry_form_view2', 'default_purchase_order_id':active_id}"
+	                        		attrs="{'readonly':[('is_created', '=', False)]}">
+		                            	<tree>
+		                            		<field name="name"/>
+		                            		<field name="total_price"/>
+		                            	</tree>
+		                            </field>
+	                        	</page>
 	                        </notebook>
 	                    </sheet>
 	                </form>
@@ -56,10 +63,6 @@
             <field name="arch" type="xml">
                 <tree string="Purchase Order">
                     <field name="name"/>
-                    <field name="product_package_id"/>
-                    <field name="qte"/>
-                    <field name="qte_prpk"/>
-                    <field name="qte_total_unity"/>
                     <field name="state"/>
                 </tree>
             </field>

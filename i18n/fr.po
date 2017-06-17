@@ -1,0 +1,2 @@
+msgid "Product Name"
+msgstr "Nom Produit"

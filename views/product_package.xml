@@ -5,21 +5,58 @@
             <field name="name">product_package.form</field>
             <field name="model">tjara.product_package</field>
             <field name="arch" type="xml">
-                <form string="Emballage Form">
+                <form string="Product/Package Form">
                     <sheet>
                         <group>
                             <field name="product_id"/>
                             <field name="package_id"/>
+                            <field name="code"/>
                             <field name="qte"/>
+                            <field name="usual_price"/>
+                            <field name="weight"/>
+                            <field name="width"/>
+                            <field name="height"/>
+                            <field name="length"/>
                         </group>
                         <notebook>
                             <page string="Description">
                                 <field name="description"/>
                             </page>
+                            <page string="Stocks">
+                            	<field name="stock_ids"/>
+                            </page>
                         </notebook>
                         
                     </sheet>
                 </form>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="product_package_tree_view">
+            <field name="name">product_package.tree</field>
+            <field name="model">tjara.product_package</field>
+            <field name="arch" type="xml">
+                <tree string="Product / Package">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="qte"/>
+                    <field name="usual_price"/>
+                    <field name="weight"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="product_package_tree_view2">
+            <field name="name">product_package.tree</field>
+            <field name="model">tjara.product_package</field>
+            <field name="arch" type="xml">
+                <tree string="Product / Package">
+                    <field name="package_id"/>
+                    <field name="qte"/>
+                    <field name="code"/>
+                    <field name="usual_price"/>
+                </tree>
             </field>
         </record>
         
@@ -40,12 +77,12 @@
             that is an action opening a view or a set of views
         -->
         <record model="ir.actions.act_window" id="product_package_list_action">
-            <field name="name">Produits/Emballages</field>
+            <field name="name">Product/Package</field>
             <field name="res_model">tjara.product_package</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">Création du premier relation produit/emballage</p>
+                <p class="oe_view_nocontent_create">Create your first product/package ..</p>
             </field>
 		</record>
 	</data>

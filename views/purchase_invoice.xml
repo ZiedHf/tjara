@@ -7,34 +7,28 @@
 	            <field name="arch" type="xml">
 	                <form string="Purchase Invoice">
 	                	<header>
-<!-- 						    <button string="In Progress" type="object" name="inprogress_progressbar" attrs="{'invisible': [('state','not in', ['draft'])]}"/>				     -->
-<!-- 						    <button string="Done" type="object" name="done_progressbar" class="oe_highlight" attrs="{'invisible': [('state','not in', ['inprogress'])]}"/> -->
-						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': ['|', ('state','not in', ['draft']), ('is_created', '=', False)]}"/>
+<!-- 						    <button string="Cancel" type="object" name="canceled_progressbar" attrs="{'invisible': ['|', ('state','not in', ['draft']), ('is_created', '=', False)]}"/> -->
 					    	<field name="state" widget="statusbar" statusbar_visible="draft, inprogress, done"/>
 						</header>
 	                    <sheet>
 	                        <group>
 	                            <field name="name"/>
-	                            <field name="provider_id" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
-	                            <field name="purchase_payment_id" attrs="{'invisible':[('purchase_payment_id', '=', False)]}"/>
+	                            <field name="provider_id"/>
+	                            <!-- <field name="purchase_payment_id"/> -->
 	                            <field name="is_created" invisible="1"/>
-	                            <field name="pricetoshow" invisible="1"/>
 	                        </group>
 	                    	<notebook>
 		                    	<page string="Provider Order">
 		                    		<group>
 		                    			<field name="provider_order_ids" widget="many2many" context="{'tree_view_ref':'tjara.provider_order_tree_view2'}" 
-		                    					attrs="{'readonly':['|', ('provider_id', '=', False), ('state', '!=', 'draft')], 'invisible':[('state', '=', 'canceled')]}"
 		                    					options="{'no_create': True, 'no_create_edit': True}"/>
-                    					<field name="po_canceled" attrs="{'readonly':[('state', '=', 'canceled')], 'invisible':[('state', '!=', 'canceled')]}"/>
 		                    		</group>
 		                    		<group class="oe_subtotal_footer">
-		                            	<field name="total_price" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '=', 'canceled')]}" />
-		                            	<field name="total_price_canceled" class="oe_subtotal_footer_separator" attrs="{'invisible':[('state', '!=', 'canceled')]}" />
+		                            	<field name="invoice_price" class="oe_subtotal_footer_separator"/>
 									</group> 
 		                    	</page>
 		                    	<!-- <page string="Product">
-		                    		<field name="name_products"/>
+		                    		<field name="products"/>
 		                    	</page> -->
 		                    </notebook>
 	                    </sheet>
@@ -46,10 +40,9 @@
             <field name="name">purchase_invoice.tree</field>
             <field name="model">tjara.purchase_invoice</field>
             <field name="arch" type="xml">
-                <tree string="Purchase Invoice" decoration-muted="state == 'canceled'">
+                <tree string="Purchase Invoice">
                     <field name="name"/>
 					<field name="provider_id"/>
-                    <field name="pricetoshow"/>
                     <field name="state"/>
                 </tree>
             </field>
