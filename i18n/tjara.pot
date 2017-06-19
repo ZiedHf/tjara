@@ -19,27 +19,24 @@ msgstr ""
 #: model:ir.ui.view,arch_db:tjara.report_provider_order
 msgid "<br/>\n"
 "                                    Date :"
-msgstr "<br/>\n"
-"                                    Date :"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.report_provider_order
 msgid "<br/>\n"
 "                                    Final date :"
-msgstr "<br/>\n"
-"                                    Date Finale :"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.report_provider_order
 msgid "<strong>Amount in text :</strong>\n"
 "                                    <br/>"
-msgstr "<strong>En chiffre :</strong>\n"
-"                                    <br/>"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.report_provider_order
 msgid "<strong>Total HT Price</strong>"
-msgstr "<strong>Prix HT total</strong>"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.report_provider_order
@@ -65,7 +62,7 @@ msgstr ""
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.voucher_entry_form_view
 msgid "Add to stock"
-msgstr "Ajouter au stock"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_client_adresse
@@ -105,7 +102,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_categories_ids
 #: model:ir.ui.view,arch_db:tjara.category_tree_view
 msgid "Category"
-msgstr "Catégorie"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_category_description
@@ -564,8 +561,8 @@ msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_provider_name
-msgid "Provider Name"
-msgstr "Nom du fournisseur"
+msgid "Nom du fournisseur"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_ref_pi_pp_qte
@@ -595,7 +592,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_product_package_ids
 #: model:ir.ui.view,arch_db:tjara.product_form_view
 msgid "Package"
-msgstr "Emballage"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_package_description
@@ -671,23 +668,23 @@ msgstr ""
 #: model:ir.ui.view,arch_db:tjara.product_tree_view
 #: model:ir.ui.view,arch_db:tjara.report_provider_order
 msgid "Product"
-msgstr "Produit"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.product_package_tree_view
 #: model:ir.ui.view,arch_db:tjara.product_package_tree_view2
 msgid "Product / Package"
-msgstr "Produit / Emballage"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_description
 msgid "Product Description"
-msgstr "Description du produit"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.product_form_view
 msgid "Product Form"
-msgstr "Form Produit"
+msgstr ""
 
 #. module: tjara
 #: code:addons/tjara/models/product.py:9
@@ -699,7 +696,7 @@ msgstr ""
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.product_form_view
 msgid "Product Name and Categories"
-msgstr "Produit et Catégories"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_package_ref_po_pp_ids
@@ -710,7 +707,7 @@ msgstr ""
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.product_form_view
 msgid "Product file"
-msgstr "Fichier du produit"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_ref_pi_pp_product_package_id
@@ -723,7 +720,7 @@ msgstr ""
 #. module: tjara
 #: model:ir.actions.act_window,name:tjara.product_package_list_action
 msgid "Product/Package"
-msgstr "Produit/Emballage"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.product_package_form_view
@@ -740,18 +737,18 @@ msgstr ""
 #: model:ir.ui.view,arch_db:tjara.purchase_order_form_view
 #: model:ir.ui.view,arch_db:tjara.voucher_entry_form_view
 msgid "Products"
-msgstr "Produits"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.menu,name:tjara.products_menu
 msgid "Products List"
-msgstr "Liste des produits"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.client_form_view
 #: model:ir.ui.view,arch_db:tjara.provider_form_view
-msgid "Products"
-msgstr "Produits"
+msgid "Produits"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_provider_order_provider_id
@@ -774,7 +771,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:tjara.provider_order_tree_view
 #: model:ir.ui.view,arch_db:tjara.provider_order_tree_view2
 msgid "Provider Order"
-msgstr "Commande"
+msgstr ""
 
 #. module: tjara
 #: model:ir.ui.view,arch_db:tjara.report_provider_order
@@ -1097,29 +1094,29 @@ msgstr ""
 #: model:ir.ui.view,arch_db:tjara.voucher_entry_form_view
 #: model:ir.ui.view,arch_db:tjara.voucher_entry_tree_view
 msgid "Voucher Entry"
-msgstr "Bon d'entrée"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_ref_ve_pp_voucher_entry_id
 msgid "Voucher entry id"
-msgstr "Id bon d'entrée"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_package_weight
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_weight
 msgid "Weight"
-msgstr "Poids"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_package_width
 #: model:ir.model.fields,field_description:tjara.field_tjara_product_width
 msgid "Width"
-msgstr "Largeur"
+msgstr ""
 
 #. module: tjara
 #: model:ir.actions.act_window,help:tjara.purchase_inquiry_list_action
 msgid "Your first purchase inquiry"
-msgstr "Votre premier demande d'offre"
+msgstr ""
 
 #. module: tjara
 #: model:ir.model,name:tjara.model_amount_to_text_fr
@@ -1271,3 +1268,4 @@ msgstr ""
 #: model:ir.model,name:tjara.model_tjara_voucher_entry
 msgid "tjara.voucher_entry"
 msgstr ""
+

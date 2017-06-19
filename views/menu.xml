@@ -24,13 +24,13 @@
         
         
         <!-- Purchase -->
-		<menuitem id="tjara_sub_menu_3" name="Purchase" parent="tjara_menu"/>
-        <menuitem id="purchase_order_menu" name="Purchase Order" parent="tjara_sub_menu_3" action="purchase_order_list_action"/>
-        <menuitem id="purchase_inquiry_menu" name="Purchase Inquiry" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/>
+		<!-- <menuitem id="tjara_sub_menu_3" name="Purchase" parent="tjara_menu"/> -->
+        <!-- <menuitem id="purchase_order_menu" name="Purchase Order" parent="tjara_sub_menu_3" action="purchase_order_list_action"/> -->
+        <!-- <menuitem id="purchase_inquiry_menu" name="Purchase Inquiry" parent="tjara_sub_menu_3" action="purchase_inquiry_list_action"/> -->
         
         <!-- Provider Order -->
         <menuitem id="tjara_sub_menu_4" name="Provider Order" parent="tjara_menu"/>
-        <menuitem id="provider_order_menu" name="Provider Order" parent="tjara_sub_menu_4" action="provider_order_list_action"/>
+        <!-- <menuitem id="provider_order_menu" name="Provider Order" parent="tjara_sub_menu_4" action="provider_order_list_action"/> -->
         <menuitem id="voucher_entry_menu" name="Voucher Entry" parent="tjara_sub_menu_4" action="voucher_entry_list_action"/>
         
         
@@ -38,6 +38,7 @@
         <menuitem id="tjara_sub_menu_5" name="Depots and Stocks" parent="tjara_menu"/>
         <menuitem id="depot_menu" name="Depot" parent="tjara_sub_menu_5" action="depot_list_action"/>
         <menuitem id="stock_menu" name="Stock" parent="tjara_sub_menu_5" action="stock_list_action"/>
+        <menuitem id="movement_menu" name="Movement" parent="tjara_sub_menu_5" action="movement_list_action"/>
         
         <!-- <menuitem id="purchase_invoice_menu" name="Purchase Invoice" parent="tjara_sub_menu_4" action="purchase_invoice_list_action"/> -->
 <!--         <menuitem id="purchase_payment_menu" name="Purchase Payment" parent="tjara_sub_menu_3" action="purchase_payment_list_action"/> -->

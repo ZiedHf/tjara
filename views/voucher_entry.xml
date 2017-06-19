@@ -7,32 +7,35 @@
 	            <field name="arch" type="xml">
 	                <form string="Voucher Entry">
 	                	<header>
-	                		<button string="Add to stock" type="object" name="addToStock"  attrs="{'invisible': ['|', ('state', 'in', ['done']), ('is_created', '!=', True)]}"/>
-	                		<field name="state" widget="statusbar" statusbar_visible="draft, done"/>
+	                		<button string="In Progress" type="object" name="inprogress_progressbar"  attrs="{'invisible': ['|', ('state', 'in', ['done']), ('is_created', '!=', True)]}"/>
+	                		<button string="Cancel" type="object" name="canceled_progressbar"  attrs="{'invisible': ['|', ('state', 'in', ['canceled']), ('is_created', '!=', True)]}"/>
+	                		<button string="Add to stock" type="object" name="addToStock"  attrs="{'invisible': ['|', ('state', 'in', ['done', 'canceled']), ('is_created', '!=', True)]}"/>
+	                		<field name="state" widget="statusbar" statusbar_visible="draft, inprogress, done"/>
 	                	</header>
 	                    <sheet>
 	                        <group>
 		                        <group>
 		                            <field name="name"/>
-		                            <field name="provider_order_id"/>
-		                            <field name="date_order"/>
-		                            <field name="datefinal_order"/>
+		                            <!-- <field name="provider_order_id"/> -->
+		                            <field name="date_order" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
+		                            <!-- <field name="datefinal_order"/> -->
+		                            <field name="entry_date" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
 		                        </group>
 		                        <group>
-		                        	<field name="provider_id"/>
-		                        	<field name="depot_id"/>
+		                        	<field name="provider_id" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
+		                        	<field name="depot_id" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}"/>
 		                        	<field name="description"/>
 		                        	<field name="is_created" invisible="1"/>
 		                        </group>
 	                        </group>
 	                        <notebook>
 		                    	<page string="Products">
-		                    		<field name="ref_ve_pp_ids">
+		                    		<field name="ref_ve_pp_ids" attrs="{'readonly': [('state', 'in', ['done', 'canceled'])]}">
 		                            	<tree editable="bottom">
 		                            		<field name="product_package_id"/>
 		                            		<field name="qte"/>
-		                            		<field name="qte_prpk"/>
-		                            		<field name="unity"/>
+		                            		<!-- <field name="qte_prpk"/>
+		                            		<field name="unity"/> -->
 		                            		<field name="qte_prpk_unity"/>
 		                            		<!-- <field name="qte_total"/> -->
 		                            		<field name="qte_total_unity"/>

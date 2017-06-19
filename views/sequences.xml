@@ -56,5 +56,13 @@
 			<field eval="1" name="number_next"/>
 			<field eval="1" name="number_increment" />
 		</record>
+		
+		<record id="sequence_movement_name" model="ir.sequence">
+			<field name="name">Movement name</field>
+			<field name="code">tjara.movement.seq</field>
+			<field name="prefix">Movement-%(year)s/%(month)s-</field>
+			<field eval="1" name="number_next"/>
+			<field eval="1" name="number_increment" />
+		</record>
 	</data>
 </odoo>

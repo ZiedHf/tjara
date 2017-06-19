@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+        <record model="ir.ui.view" id="movement_form_view">
+				<field name="name">movement.form</field>
+	            <field name="model">tjara.movement</field>
+	            <field name="arch" type="xml">
+	                <form string="Movement Form" create="0" edit="0">
+	                    <sheet>
+	                        <group>
+	                        	<field name="name"/>
+	                        	<field name="product_id"/>
+	                        	<field name="qte_total_unity"/>
+	                        	<field name="depot_id"/>
+	                        	<field name="stock_id"/>
+	                        	<field name="type_movement"/>
+	                        </group>
+                        </sheet>
+	                </form>
+	            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="movement_tree_view">
+            <field name="name">movement.tree</field>
+            <field name="model">tjara.movement</field>
+            <field name="arch" type="xml">
+                <tree string="movement" create="0" edit="0">
+                    <field name="name"/>
+                   	<field name="product_id"/>
+                   	<field name="qte_total_unity"/>
+                   	<field name="depot_id"/>
+                   	<field name="type_movement"/>
+                </tree>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="movement_search_view">
+            <field name="name">movement.search</field>
+            <field name="model">tjara.movement</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                   	<field name="product_id"/>
+                   	<field name="depot_id"/>
+                   	<field name="stock_id"/>
+                   	<field name="type_movement"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="movement_list_action">
+            <field name="name">movements</field>
+            <field name="res_model">tjara.movement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create your first movement</p>
+            </field>
+        </record>
+	</data>
+</odoo>

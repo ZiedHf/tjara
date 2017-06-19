@@ -17,7 +17,7 @@
         					<page string="Description">
         						<field name="description"/>
         					</page>
-        					<page string="Produits">
+        					<page string="Products">
 						    	<label for="product_ids"/>
                         		<field name="product_ids"/>
                             </page>
@@ -43,7 +43,7 @@
         	<field name="view_type">form</field>
         	<field name="view_mode">tree,form</field>
         	<field name="help" type="html">
-                <p class="oe_view_nocontent_create">Création du premier client</p>
+                <p class="oe_view_nocontent_create">Create your first client</p>
             </field>
         </record>
         

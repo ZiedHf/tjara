@@ -7,6 +7,7 @@ encoding//models/category.py=utf-8
 encoding//models/client.py=utf-8
 encoding//models/depot.py=utf-8
 encoding//models/models.py=utf-8
+encoding//models/movement.py=utf-8
 encoding//models/package.py=utf-8
 encoding//models/product.py=utf-8
 encoding//models/product_package.py=utf-8

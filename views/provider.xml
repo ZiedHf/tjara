@@ -5,7 +5,7 @@
         	<field name="name">provider.form</field>
         	<field name="model">tjara.provider</field>
         	<field name="arch" type="xml">
-        		<form string="Fournisseur form">
+        		<form string="Provider form">
         			<sheet>
         				<group>
         					<field name="name"/>
@@ -17,7 +17,7 @@
         					<page string="Description">
         						<field name="description"/>
         					</page>
-        					<page string="Produits">
+        					<page string="Products">
 						    	<label for="product_ids"/>
                         		<field name="product_ids"/>
         					</page>
@@ -43,7 +43,7 @@
         	<field name="view_type">form</field>
         	<field name="view_mode">tree,form</field>
         	<field name="help" type="html">
-                <p class="oe_view_nocontent_create">Création du premier fournisseur</p>
+                <p class="oe_view_nocontent_create">Create your first provider</p>
             </field>
         </record>
 	</data>

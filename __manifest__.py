@@ -41,6 +41,7 @@
         'views/depot.xml',
         'views/provider_order.xml',
         'views/voucher_entry.xml',
+        'views/movement.xml',
 #         'views/purchase_invoice.xml',
 #         'views/purchase_payment.xml',
 #         'views/provider_regulation.xml',
